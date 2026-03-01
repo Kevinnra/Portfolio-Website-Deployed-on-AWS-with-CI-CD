@@ -491,6 +491,8 @@ body {
   margin: 1rem auto 0;
   cursor: pointer;
   max-width: 200px;
+  font-size: 0.9rem;
+  font-family: var(--Poppins);
 }
 
 #submit-btn:disabled {
@@ -708,8 +710,5 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
-  /* .contact-link {
-    border: 1px solid var(--accent-color);
-  } */
 }
 
