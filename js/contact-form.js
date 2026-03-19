@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const formData = {
       name: document.getElementById('name').value.trim(),
       email: document.getElementById('email').value.trim(),
-      message: document.getElementById('message').value.trim()
+      message: document.getElementById('message').value.trim(),
+      honeypot: document.getElementById('honeypot').value // Honeypot field
     };
     
     // Validate

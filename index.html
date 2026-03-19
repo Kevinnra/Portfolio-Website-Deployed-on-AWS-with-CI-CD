@@ -279,6 +279,16 @@
           placeholder="Your message here..."
         ></textarea>
       </div>
+
+      # Honeypot field for spam prevention (hidden from users)
+      <input 
+        type="text" 
+        name="honeypot" 
+        id="honeypot" 
+        style="display: none;" 
+        tabindex="-1" 
+        autocomplete="off"
+      />
       
       <button type="submit" class="btn btn-primary" id="submit-btn">
         <span class="btn-text">Send Message</span>
