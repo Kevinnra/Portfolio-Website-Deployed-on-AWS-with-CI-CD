@@ -158,6 +158,43 @@ function loadProject() {
     `;
   }
 
+  // Cost Breakdown (optional)
+  if (project.costBreakdown) {
+    const cb = project.costBreakdown;
+    html += `
+      <section id="cost-breakdown">
+        <h2>Cost Breakdown</h2>
+        <p class="cost-intro">${cb.intro}</p>
+        <div class="cost-table-wrap">
+          <table class="cost-table">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Est. Monthly Cost</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${cb.items.map(item => `
+                <tr>
+                  <td class="cost-service">${item.service}</td>
+                  <td class="cost-value">${item.cost}</td>
+                  <td class="cost-note">${item.note}</td>
+                </tr>
+              `).join('')}
+              <tr class="cost-total-row">
+                <td><strong>Total</strong></td>
+                <td><strong>${cb.total}</strong></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        ${(cb.footer || cb.note) ? `<p class="cost-footer">${cb.footer || cb.note}</p>` : ''}
+      </section>
+    `;
+  }
+
   // Lessons Learned
   if (project.lessons && project.lessons.length > 0) {
     html += `

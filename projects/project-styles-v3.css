@@ -385,6 +385,106 @@ body {
   font-size: 0.93rem;
 }
 
+/* ── COST BREAKDOWN TABLE ────────────────────────────────────── */
+.cost-intro {
+  margin-bottom: 1.25rem;
+}
+
+.cost-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0 0 1rem;
+}
+
+.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--Poppins);
+  font-size: 0.88rem;
+}
+
+.cost-table thead tr {
+  background: rgba(214, 106, 18, 0.12);
+  border-bottom: 1px solid rgba(214, 106, 18, 0.3);
+}
+
+.cost-table th {
+  text-align: left;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bold-color);
+  white-space: nowrap;
+}
+
+.cost-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.15s ease;
+}
+
+.cost-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.cost-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cost-table td {
+  padding: 0.65rem 1rem;
+  vertical-align: top;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.cost-service {
+  font-family: var(--Code-pro);
+  font-size: 0.82rem;
+  color: var(--fullwhite) !important;
+  white-space: nowrap;
+}
+
+.cost-value {
+  font-family: var(--Code-pro);
+  font-size: 0.85rem;
+  color: var(--bold-color) !important;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.cost-note {
+  font-size: 0.84rem;
+  color: var(--text-color);
+}
+
+.cost-total-row {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.cost-total-row td {
+  color: var(--fullwhite) !important;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.cost-total-row .cost-value,
+.cost-total-row td:nth-child(2) {
+  color: var(--bold-color) !important;
+  font-size: 0.95rem;
+}
+
+.cost-footer {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
 /* Code blocks */
 .code-block {
   position: relative;

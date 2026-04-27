@@ -1,8 +1,10 @@
 // Centralized project data for dynamic loading
 const projectsData = {
+  // Add this entry to your existing projectsData object in project-data.js
+
   "aws-portfolio": {
-    title: "Personal Portfolio Hosting on AWS",
-    tagline: "Production-ready static website with automated CI/CD pipeline",
+    title: "AWS Cloud Portfolio with CI/CD Pipeline",
+    tagline: "Production-ready static website with automated deployment and intelligent cache invalidation",
     badges: ["AWS S3", "CloudFront", "Route 53", "GitHub Actions", "IAM"],
     
     links: {
@@ -11,216 +13,246 @@ const projectsData = {
     },
     
     overview: {
-      problem: "Traditional web hosting lacks scalability, global performance optimization, and automated deployment workflows. Manual updates are error-prone and time-consuming, while conventional hosting providers offer limited control over infrastructure.",
+      problem: "Traditional web hosting requires managing servers, manual deployments, and lacks global performance optimization. Manual cache invalidation wastes time and money by clearing entire CDN distributions instead of just changed files.",
       
-      solution: "Implemented a serverless, globally distributed architecture using AWS services with full infrastructure automation through GitHub Actions. The solution achieves enterprise-grade performance at minimal cost while maintaining complete control over the deployment pipeline.",
+      solution: "Built a serverless architecture using AWS S3 for hosting, CloudFront for global content delivery, and Route 53 for DNS management. Implemented automated CI/CD pipeline with GitHub Actions that detects modified files via Git comparison and performs intelligent cache invalidation.",
       
       results: [
         "99.99% availability via CloudFront CDN",
         "Sub-second global load times",
         "$0.56/month operational cost",
         "Zero-downtime deployments",
-        "100% deployment automation"
+        "80% reduction in cache invalidation costs"
       ]
     },
     
     architecture: {
       image: "/Resources/images/Architecture-Diagram-AWS-dark.jpg",
-      description: "The architecture follows a serverless pattern where S3 serves as the origin server, CloudFront handles global content delivery through edge locations, and Route 53 manages DNS routing. GitHub Actions orchestrates the entire deployment process, implementing intelligent cache invalidation to ensure content freshness while minimizing API costs."
+      description: "S3 serves as the origin server storing website files with versioning and encryption enabled. CloudFront delivers content globally through 450+ edge locations, caching static assets for fast access. Route 53 manages DNS routing with Alias records pointing to the CloudFront distribution. GitHub Actions orchestrates the deployment pipeline, syncing files to S3 and invalidating only changed CloudFront paths."
     },
     
-    // Optional: Technical Details
+    // OPTIONAL: Technical Details
     technicalDetails: [
       {
         service: "AWS S3",
-        details: "Static website hosting with versioning enabled, AES-256 encryption, and optimized bucket policies for public read access"
+        details: "Static website hosting with versioning enabled for rollback capability, AES-256 server-side encryption, and bucket policy configured for public read access while maintaining security"
       },
       {
         service: "CloudFront CDN",
-        details: "Global content delivery with custom domain support, HTTPS enforcement, and intelligent caching strategies"
+        details: "Global content delivery with custom domain support (kevinnramirez.com, www.kevinnramirez.com), HTTPS enforcement via ACM certificate, and edge location caching for sub-second latency worldwide"
       },
       {
         service: "Route 53",
-        details: "DNS management with A record aliases pointing to CloudFront distribution for both apex and www domains"
+        details: "DNS management with A record Aliases pointing to CloudFront distribution for both apex and www domains, eliminating query charges and providing better performance than CNAME records"
       },
       {
         service: "GitHub Actions",
-        details: "Automated CI/CD pipeline with file change detection and selective cache invalidation"
+        details: "Automated CI/CD pipeline triggered on push to main branch, performing S3 sync with --delete flag and intelligent cache invalidation based on Git file comparison"
       },
       {
-        service: "IAM Security",
-        details: "Dedicated users with least-privilege policies for development and CI/CD operations"
+        service: "IAM",
+        details: "Dedicated IAM user for GitHub Actions with least-privilege policy allowing only S3 sync and CloudFront invalidation, following security best practices with credentials stored as GitHub Secrets"
       }
     ],
-    
-    // Optional: Key Features
-    // features: [
-    //   {
-    //     title: "Intelligent Cache Invalidation",
-    //     description: "Pipeline automatically detects modified HTML, CSS, and JavaScript files using Git comparison, then invalidates only those specific CloudFront paths. This reduces API costs by 80% while ensuring users always see the latest content."
-    //   },
-    //   {
-    //     title: "Zero-Downtime Deployments",
-    //     description: "S3 versioning combined with CloudFront's edge caching ensures continuous availability during updates. The deployment process includes automated health checks and rollback capabilities."
-    //   },
-    //   {
-    //     title: "Security Best Practices",
-    //     description: "Implementation includes dedicated IAM users with minimal permissions, S3 server-side encryption, GitHub Secrets for credential management, and no hardcoded secrets in source code."
-    //   }
-    // ],
     
     challenges: [
       {
-        title: "Broken Website After CSS Updates",
-        problem: "Initial CI/CD pipeline only invalidated index.html in CloudFront cache. When CSS or JavaScript files were updated, the website displayed outdated styles due to cached content, breaking the visual appearance and functionality.",
-        solution: "Implemented Git-based file change detection that compares current commit with previous commit to identify modified files. The pipeline dynamically generates CloudFront invalidation paths for only the changed HTML, CSS, and JS files.",
+        title: "Challenge #1: Outdated CSS After Deployments",
+        problem: "Initial CI/CD pipeline only invalidated /index.html in CloudFront cache. When CSS or JavaScript files were updated, the website displayed broken styles because CloudFront continued serving cached versions of old files.",
+        solution: "Implemented Git-based file detection in GitHub Actions workflow. The pipeline compares current commit with previous commit to identify modified .html, .css, and .js files, then dynamically generates CloudFront invalidation paths for only those specific files.",
         code: {
           language: "yaml",
-          title: "Intelligent Cache Invalidation - GitHub Actions",
+          title: "Intelligent Cache Invalidation - GitHub Actions Workflow",
           content: `- name: Check if important files were modified
-  id: check_files
-  run: |
-    echo "Checking which files were modified..."
-    CHANGED_FILES=$(git diff --name-only \${{ github.event.before }} \${{ github.sha }} | grep -E '\\.(html|css|js)$' || true)
-    
-    if [ -n "$CHANGED_FILES" ]; then
-      echo "Changed files:"
-      echo "$CHANGED_FILES"
+    id: check_files
+    run: |
+      echo "Checking which files were modified..."
+      CHANGED_FILES=$(git diff --name-only \${{ github.event.before }} \${{ github.sha }} | grep -E '\\.(html|css|js)$' || true)
       
-      # Convert file list to CloudFront paths format
-      PATHS=$(echo "$CHANGED_FILES" | sed 's|^|/|' | tr '\\n' ' ')
-      echo "paths=$PATHS" >> $GITHUB_OUTPUT
-      echo "has_changes=true" >> $GITHUB_OUTPUT
-    else
-      echo "No HTML, CSS, or JS files changed"
-      echo "has_changes=false" >> $GITHUB_OUTPUT
-    fi
+      if [ -n "$CHANGED_FILES" ]; then
+        echo "Changed files:"
+        echo "$CHANGED_FILES"
+        
+        # Convert file list to CloudFront paths format
+        PATHS=$(echo "$CHANGED_FILES" | sed 's|^|/|' | tr '\\n' ' ')
+        echo "paths=$PATHS" >> $GITHUB_OUTPUT
+        echo "has_changes=true" >> $GITHUB_OUTPUT
+      else
+        echo "No HTML, CSS, or JS files changed"
+        echo "has_changes=false" >> $GITHUB_OUTPUT
+      fi
 
-- name: Invalidate CloudFront cache
-  if: steps.check_files.outputs.has_changes == 'true'
-  run: |
-    echo "Invalidating CloudFront for changed files..."
-    aws cloudfront create-invalidation \\
-      --distribution-id \${{ secrets.CLOUDFRONT_DIST_ID }} \\
-      --paths \${{ steps.check_files.outputs.paths }}`
+  - name: Invalidate CloudFront cache
+    if: steps.check_files.outputs.has_changes == 'true'
+    run: |
+      echo "Invalidating CloudFront for changed files..."
+      aws cloudfront create-invalidation \\
+        --distribution-id \${{ secrets.CLOUDFRONT_DIST_ID }} \\
+        --paths \${{ steps.check_files.outputs.paths }}`
         },
         benefits: [
-          "Website always reflects latest changes immediately",
-          "Reduced CloudFront invalidation costs by 80%",
-          "Faster cache invalidation processing",
-          "More efficient pipeline execution"
+          "Website always displays latest changes immediately after deployment",
+          "Reduced CloudFront invalidation API costs by 80% (only changed paths vs entire distribution)",
+          "Faster cache invalidation processing with fewer paths to clear",
+          "More efficient CI/CD pipeline execution time"
         ]
       },
       {
-        title: "Understanding AWS Service Integration",
-        problem: "Initially struggled to understand how S3, CloudFront, and Route 53 interconnect for static website hosting. The relationship between origin servers, CDN edge locations, and DNS routing was unclear.",
-        solution: "Created detailed architecture diagrams and documented the complete data flow. Learned that S3 serves as the origin server storing website files, CloudFront acts as the CDN distributing content globally through edge locations, and Route 53 routes domain traffic to the CloudFront distribution.",
+        title: "Challenge #2: Understanding AWS Service Integration",
+        problem: "First time working with AWS infrastructure. Struggled to understand how S3, CloudFront, and Route 53 interconnect for static website hosting. The relationship between origin servers, CDN edge locations, and DNS routing was unclear.",
+        solution: "Created detailed architecture diagram mapping the complete data flow. Learned that S3 serves as the origin server storing website files, CloudFront acts as the CDN distributing content globally through 450+ edge locations, and Route 53 routes domain traffic to the CloudFront distribution using Alias records.",
         benefits: [
-          "Deep understanding of cloud service integration",
-          "Ability to design scalable architectures",
-          "Knowledge of CDN and caching strategies",
-          "Foundation for future cloud projects"
+          "Deep understanding of cloud service integration and data flow patterns",
+          "Ability to design scalable architectures using managed AWS services",
+          "Knowledge of CDN caching strategies and edge location distribution",
+          "Foundation for building more complex multi-tier cloud applications"
         ]
       },
       {
-        title: "DNS Configuration with Custom Domain",
-        problem: "First experience configuring DNS records, understanding A records vs CNAME records, and connecting a custom domain to AWS infrastructure. The DNS propagation process and nameserver configuration were initially confusing.",
-        solution: "Used AWS Route 53 Alias records instead of traditional CNAME records for better performance and no additional cost. Configured both apex domain (kevinnramirez.com) and www subdomain to point to the CloudFront distribution.",
+        title: "Challenge #3: DNS Configuration and Domain Setup",
+        problem: "First experience configuring DNS records, understanding A records vs CNAME records, and connecting a custom domain to AWS infrastructure. DNS propagation timing and nameserver configuration were initially confusing.",
+        solution: "Used Route 53 Alias records instead of traditional CNAME records for better performance and cost efficiency. Configured both apex domain (kevinnramirez.com) and www subdomain to point to the CloudFront distribution. Learned that Alias records are free and provide lower latency compared to CNAME records which incur query charges.",
         benefits: [
-          "Understanding of DNS fundamentals",
-          "Knowledge of Alias vs CNAME trade-offs",
-          "Ability to configure custom domains",
-          "Lower latency with Alias records"
+          "Understanding of DNS fundamentals and record types",
+          "Knowledge of Alias vs CNAME trade-offs for AWS services",
+          "Ability to configure custom domains for cloud applications",
+          "Lower latency and zero additional cost with Alias records"
         ]
       }
     ],
     
-    // Optional: Code Deep Dive
+    // OPTIONAL: Code Deep Dive
     codeBlocks: [
       {
-        title: "Complete GitHub Actions Workflow",
+        title: "Complete GitHub Actions Deployment Workflow",
         language: "yaml",
         code: `name: Deploy to S3
-on:
-  push:
-    branches: [ main ]
+  on:
+    push:
+      branches: [ main ]
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2  # Need at least 2 commits to compare
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: \${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: \${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1
-      
-      - name: Sync files to S3
-        run: |
-          aws s3 sync . s3://statict-site-s3 --delete
-      
-      - name: Check if important files were modified
-        id: check_files
-        run: |
-          CHANGED_FILES=$(git diff --name-only \${{ github.event.before }} \${{ github.sha }} | grep -E '\\.(html|css|js)$' || true)
-          
-          if [ -n "$CHANGED_FILES" ]; then
-            PATHS=$(echo "$CHANGED_FILES" | sed 's|^|/|' | tr '\\n' ' ')
-            echo "paths=$PATHS" >> $GITHUB_OUTPUT
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Invalidate CloudFront cache
-        if: steps.check_files.outputs.has_changes == 'true'
-        run: |
-          aws cloudfront create-invalidation \\
-            --distribution-id \${{ secrets.CLOUDFRONT_DIST_ID }} \\
-            --paths \${{ steps.check_files.outputs.paths }}`
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout source
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 2  # Need at least 2 commits to compare
+        
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v2
+          with:
+            aws-access-key-id: \${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: \${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ap-northeast-1
+        
+        - name: Sync files to S3
+          run: |
+            aws s3 sync . s3://statict-site-s3 --delete
+        
+        - name: Check if important files were modified
+          id: check_files
+          run: |
+            CHANGED_FILES=$(git diff --name-only \${{ github.event.before }} \${{ github.sha }} | grep -E '\\.(html|css|js)$' || true)
+            
+            if [ -n "$CHANGED_FILES" ]; then
+              PATHS=$(echo "$CHANGED_FILES" | sed 's|^|/|' | tr '\\n' ' ')
+              echo "paths=$PATHS" >> $GITHUB_OUTPUT
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+            fi
+        
+        - name: Invalidate CloudFront cache
+          if: steps.check_files.outputs.has_changes == 'true'
+          run: |
+            aws cloudfront create-invalidation \\
+              --distribution-id \${{ secrets.CLOUDFRONT_DIST_ID }} \\
+              --paths \${{ steps.check_files.outputs.paths }}`
       },
       {
-        title: "S3 Bucket Configuration",
+        title: "S3 Bucket Configuration - Security and Performance",
         language: "bash",
         code: `# Enable versioning for rollback capability
-aws s3api put-bucket-versioning \\
-  --bucket statict-site-s3 \\
-  --versioning-configuration Status=Enabled
+  aws s3api put-bucket-versioning \\
+    --bucket statict-site-s3 \\
+    --versioning-configuration Status=Enabled
 
-# Enable server-side encryption
-aws s3api put-bucket-encryption \\
-  --bucket statict-site-s3 \\
-  --server-side-encryption-configuration '{
-    "Rules": [{
-      "ApplyServerSideEncryptionByDefault": {
-        "SSEAlgorithm": "AES256"
-      }
-    }]
-  }'
+  # Enable server-side encryption (AES-256)
+  aws s3api put-bucket-encryption \\
+    --bucket statict-site-s3 \\
+    --server-side-encryption-configuration '{
+      "Rules": [{
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "AES256"
+        }
+      }]
+    }'
 
-# Configure static website hosting
-aws s3 website s3://statict-site-s3/ \\
-  --index-document index.html
+  # Configure static website hosting
+  aws s3 website s3://statict-site-s3/ \\
+    --index-document index.html
 
-# Apply bucket policy for public read access
-aws s3api put-bucket-policy \\
-  --bucket statict-site-s3 \\
-  --policy '{
-    "Version": "2012-10-17",
-    "Statement": [{
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::statict-site-s3/*"
-    }]
-  }'`
+  # Apply bucket policy for public read access
+  aws s3api put-bucket-policy \\
+    --bucket statict-site-s3 \\
+    --policy '{
+      "Version": "2012-10-17",
+      "Statement": [{
+        "Sid": "PublicReadGetObject",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "s3:GetObject",
+        "Resource": "arn:aws:s3:::statict-site-s3/*"
+      }]
+    }'`
       }
     ],
+    
+    // Cost breakdown section
+    costBreakdown: {
+      intro: "Cost awareness is critical for cloud infrastructure. This project demonstrates strategic use of AWS Free Tier while maintaining production-grade performance and availability.",
+      
+      items: [
+        {
+          service: "S3 Storage",
+          cost: "$0.00",
+          note: "~50MB website files within Free Tier (5GB storage included)"
+        },
+        {
+          service: "S3 Requests",
+          cost: "$0.00",
+          note: "~100 GET requests/month within Free Tier (20,000 included)"
+        },
+        {
+          service: "CloudFront Data Transfer",
+          cost: "$0.00",
+          note: "~1GB/month within Free Tier (1TB for first 12 months)"
+        },
+        {
+          service: "CloudFront Requests",
+          cost: "$0.00",
+          note: "~10,000 requests/month within Free Tier (10M for first 12 months)"
+        },
+        {
+          service: "CloudFront Invalidations",
+          cost: "$0.00",
+          note: "~5 invalidations/month — first 1,000 invalidations are free"
+        },
+        {
+          service: "Route 53 Hosted Zone",
+          cost: "$0.50",
+          note: "Standard charge for hosted zone — applies immediately regardless of usage"
+        },
+        {
+          service: "Route 53 Queries",
+          cost: "$0.00",
+          note: "Standard DNS queries within Free Tier (1M queries/month included)"
+        }
+      ],
+      
+      total: "$0.56/month",
+      note: "This is a dev/learning environment. Production workloads with higher traffic and multi-region redundancy would cost significantly more."
+    },
     
     metrics: [
       { label: "Uptime", value: "99.99%" },
@@ -230,312 +262,270 @@ aws s3api put-bucket-policy \\
     ],
     
     lessons: [
-      "Cloud services work as building blocks - understanding each service's role is crucial for proper architecture design",
-      "Cache invalidation is critical in CDN architectures - granular invalidation improves both performance and cost-efficiency",
-      "Security best practices matter from day one - implementing least-privilege IAM policies and proper secrets management prevents future vulnerabilities",
-      "Infrastructure automation reduces human error - CI/CD pipelines ensure consistent, repeatable deployments",
-      "Cost optimization requires intentional design - leveraging AWS Free Tier and optimizing API calls keeps operational costs minimal"
+      "DNS propagation takes 24-48 hours globally — plan deployments ahead rather than expecting instant updates after Route 53 changes",
+      "CloudFront caching is critical — invalidating only changed paths instead of entire distribution reduced costs by 80% and improved deployment speed",
+      "S3 bucket policies require precise JSON syntax — incorrect ARN format or missing wildcards cause 403 errors that require CloudWatch log debugging",
+      "Versioning is essential for production — enabled S3 versioning after accidentally deleting files, now can restore previous versions instantly",
+      "GitHub Secrets protect credentials — never commit AWS access keys to repository; use encrypted repository secrets for secure CI/CD"
+    ]
+  },
+  "serverless-api": {
+
+  title: "Serverless Contact Form API",
+  tagline: "A production-ready REST API built on AWS — no server, no idle cost, deploys itself on every push to main.",
+
+  badges: [
+    "AWS Lambda",
+    "API Gateway",
+    "DynamoDB",
+    "Amazon SES",
+    "CloudWatch",
+    "SNS",
+    "AWS SAM",
+    "Python 3.13",
+    "GitHub Actions"
+  ],
+
+  links: {
+    github: "https://github.com/Kevinnra/Serverless-Contact-Form-API",
+    demo: "https://kevinnramirez.com/#contact"
+  },
+
+  overview: {
+    problem: "A static portfolio site has no backend. Running a server just to handle a contact form means paying for compute around the clock — for a workload that fires a handful of times a week at most.",
+
+    solution: "The entire backend is serverless. A form submission hits API Gateway, which triggers a Lambda function that validates the input, stores the message in DynamoDB, and sends an email via SES. Every AWS resource is defined in a SAM template and deployed automatically through GitHub Actions on every push to main. Nothing runs between requests — cost stays at $0/month within AWS Free Tier.",
+
+    results: [
+      "$0.00/month operational cost within AWS Free Tier",
+      "Full infrastructure defined as code — one command to provision or tear down the entire stack",
+      "Automated CI/CD: every push to main deploys the latest version with no manual steps",
+      "Multi-layer input security: validation, HTML sanitization, and honeypot bot detection",
+      "API Gateway rate limiting (5 req/s, burst 10) on a public endpoint"
     ]
   },
 
-  "serverless-api": {
-    title: "Serverless Contact Form API",
-    tagline: "Production-ready REST API built with AWS Lambda, DynamoDB, and SES — deployed automatically via GitHub Actions and AWS SAM",
-    badges: ["AWS Lambda", "API Gateway", "DynamoDB", "Amazon SES", "CloudWatch", "SNS", "AWS SAM", "Python", "CI/CD"],
+  
+  architecture: {
+    image: "/resources/images/contact-form-v2.jpg",
+    description: "Form submissions travel from the portfolio frontend to API Gateway, which enforces rate limiting and routes the request to Lambda. The function validates and sanitizes input, silently discards bot submissions via honeypot detection, writes the record to DynamoDB, and dispatches an email through SES. CloudWatch captures every invocation log and fires SNS alerts when errors cross a threshold. The entire stack — Lambda, API Gateway, DynamoDB, SES permissions, CloudWatch alarms, SNS topic — is defined in a single SAM template and provisioned through CloudFormation."
+  },
 
-    links: {
-      github: "https://github.com/Kevinnra/Serverless-Contact-Form-API",
-      demo: "https://www.kevinnramirez.com/#contact"
+  technicalDetails: [
+    {
+      service: "AWS Lambda (Python 3.13)",
+      details: "Handles the full request lifecycle: field validation, HTML tag stripping, email format check, honeypot evaluation, DynamoDB write, and SES dispatch. Uses Python stdlib for sanitization to keep the deployment package small and cold starts fast."
     },
+    {
+      service: "Amazon API Gateway",
+      details: "Public REST endpoint. Enforces rate limiting at 5 req/s with a burst of 10 to prevent abuse. CORS configured to allow requests from the portfolio domain. TLS termination handled at this layer."
+    },
+    {
+      service: "Amazon DynamoDB",
+      details: "Stores every validated submission with a UUID partition key, ISO timestamp, sanitized content, and source IP. On-demand (PAY_PER_REQUEST) billing — no cost at zero requests, no capacity to provision or manage."
+    },
+    {
+      service: "Amazon SES",
+      details: "Sends an email notification on each successful submission. Lambda IAM role scoped to ses:SendEmail on the specific verified sender identity — not a wildcard resource."
+    },
+    {
+      service: "AWS SAM + CloudFormation",
+      details: "All resources defined in template.yaml. SAM shorthand compiles to CloudFormation at deploy time — nothing is abstracted away. samconfig.toml persists deploy parameters so subsequent deployments and CI runs need no flags."
+    },
+    {
+      service: "CloudWatch + SNS",
+      details: "Every Lambda invocation is logged automatically. A CloudWatch alarm monitors the function error rate and publishes to an SNS topic when the threshold is breached, triggering an alert email."
+    }
+  ],
 
-    overview: {
-      problem: "Static portfolio websites need a backend to receive visitor messages — but running a dedicated server 24/7 for a simple contact form is wasteful, expensive, and over-engineered. Traditional hosting solutions introduce maintenance overhead and ongoing costs for minimal traffic.",
-
-      solution: "Built a fully serverless REST API on AWS that costs effectively $0/month within the free tier, scales automatically to any traffic level, and deploys itself on every Git push. No servers to manage, no runtime to maintain, no manual deployments — the infrastructure defines itself through AWS SAM templates.",
-
-      results: [
-        "$0.00/month operational cost within AWS Free Tier",
-        "< 300ms average API response time globally",
-        "100% automated deployments via GitHub Actions + AWS SAM",
-        "Zero infrastructure management — fully event-driven architecture",
-        "Security hardened: input sanitization, rate limiting, and honeypot bot detection"
+  challenges: [
+    {
+      title: "SES rejected emails in sandbox mode",
+      problem: "The Lambda function executed without errors, but no emails arrived. CloudWatch logs showed a MessageRejected exception from SES with no further detail in the function output.",
+      solution: "SES accounts start in sandbox mode where sending is restricted to individually verified addresses. Both the sender and recipient addresses needed to be verified in the SES console. The Lambda IAM role also had to be scoped to ses:SendEmail on the specific verified sender identity ARN — a wildcard resource would have obscured whether the permission was correct.",
+      code: {
+        language: "json",
+        title: "IAM policy — SES permission scoped to verified identity",
+        content: `{
+  "Effect": "Allow",
+  "Action": ["ses:SendEmail", "ses:SendRawEmail"],
+  "Resource": "arn:aws:ses:ap-northeast-1:ACCOUNT_ID:identity/sender@example.com"
+}`
+      },
+      benefits: [
+        "Scoping the SES permission to a specific identity ARN makes it immediately obvious if the wrong address is being used",
+        "Explicit resource ARNs in IAM policies follow least-privilege — no broader access than what the function actually needs",
+        "Reading CloudWatch logs at each stage of the handler (receive, validate, store, email) made it possible to isolate exactly where the failure occurred"
       ]
     },
+    {
+      title: "API Gateway returning 502 instead of the Lambda error",
+      problem: "When the Lambda function threw an unhandled exception, API Gateway returned 502 Bad Gateway to the frontend instead of a useful error message. The actual error was only visible in CloudWatch logs.",
+      solution: "API Gateway requires Lambda to always return a response object with statusCode, headers, and body fields. An unhandled exception produces no such object, which API Gateway interprets as a malformed response. Wrapping the entire handler body in try/except — with the except block returning a structured 500 response — meant every code path produces something the gateway can forward.",
+      code: {
+        language: "python",
+        title: "Lambda handler — catch-all ensures a valid response object",
+        content: `def lambda_handler(event, context):
+    try:
+        # ... all handler logic
+        return build_response(200, {'success': True, 'message': 'Thank you!'})
 
-    architecture: {
-      image: "/Resources/images/contact-form-v2.jpg",
-      description: "Contact form submissions are sent from the portfolio site to API Gateway, where rate limiting is applied before invoking Lambda. The Python handler validates and sanitizes input, silently filters bot traffic through a honeypot check, stores valid messages in DynamoDB, and triggers SES email notifications. CloudWatch records execution logs and SNS raises alerts when error thresholds are exceeded. All infrastructure is declared in a SAM template and automatically deployed through GitHub Actions on every push to main."
-    },
+    except Exception as e:
+        print(f'ERROR: {e}')  # Captured by CloudWatch
+        return build_response(500, {'error': 'Internal server error.'})
 
-    technicalDetails: [
-      {
-      service: "AWS Lambda (Python 3.13)",
-      details: "Serverless handler orchestrates the entire workflow: validating input, sanitizing HTML content, implementing honeypot bot detection, writing to DynamoDB, and sending email notifications. Dependencies are kept lean to minimize cold start delays."
-      },
-      {
-      service: "Amazon API Gateway",
-      details: "REST endpoint with rate throttling capped at 5 requests/second (with bursts up to 10) to deter abuse. CORS setup restricts requests to the portfolio domain exclusively."
-      },
-      {
-        service: "Amazon DynamoDB",
-        details: "NoSQL table stores every validated form submission with timestamp, sanitized content, and request metadata. On-demand capacity mode — pay only for actual requests, never over-provisioned."
-      },
-      {
-        service: "Amazon SES",
-        details: "Sends formatted email notifications to the portfolio owner on each successful submission. Configured with verified sender and recipient addresses; documented production SES graduation process."
-      },
-      {
-        service: "AWS SAM + CloudFormation",
-        details: "All infrastructure defined as code in template.yaml. SAM transforms higher-level shorthand into CloudFormation resources, making serverless IaC dramatically more concise than raw CloudFormation."
-      },
-      {
-        service: "CloudWatch + SNS",
-        details: "Automatic log capture for every Lambda invocation. Custom alarms detect error rate spikes and publish alerts to SNS, which delivers notifications via email."
-      }
-    ],
-
-    challenges: [
-      {
-        title: "Infrastructure as Code with AWS SAM",
-        problem: "First experience with Infrastructure as Code for serverless resources. Understanding how SAM transforms into CloudFormation, managing parameters, and wiring together Lambda, API Gateway, DynamoDB, SES, and CloudWatch in a single template was a significant learning curve.",
-        solution: "Used sam deploy --guided for initial setup, which generates a samconfig.toml file that saves all configuration for subsequent deployments. Studied the SAM resource transformation documentation to understand how SAM shorthand maps to underlying CloudFormation. This became the conceptual foundation for later Terraform work.",
-        code: {
-          language: "yaml",
-          title: "SAM Template — Core Resources (template.yaml)",
-          content: `AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-
-Parameters:
-  SenderEmail:
-    Type: String
-  RecipientEmail:
-    Type: String
-  Environment:
-    Type: String
-    Default: prod
-
-Globals:
-  Function:
-    Timeout: 10
-    Runtime: python3.13
-
-Resources:
-  ContactFormFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: contact_form/
-      Handler: app.lambda_handler
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref SubmissionsTable
-          SENDER_EMAIL: !Ref SenderEmail
-          RECIPIENT_EMAIL: !Ref RecipientEmail
-      Policies:
-        - DynamoDBWritePolicy:
-            TableName: !Ref SubmissionsTable
-        - SESCrudPolicy:
-            IdentityName: !Ref SenderEmail
-      Events:
-        ContactForm:
-          Type: Api
-          Properties:
-            Path: /contact
-            Method: post
-            RestApiId: !Ref ContactApi
-
-  ContactApi:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: !Ref Environment
-      ThrottlingRateLimit: 5
-      ThrottlingBurstLimit: 10
-
-  SubmissionsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      BillingMode: PAY_PER_REQUEST
-      AttributeDefinitions:
-        - AttributeName: submission_id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: submission_id
-          KeyType: HASH`
+def build_response(status_code, body):
+    return {
+        'statusCode': status_code,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         },
-        benefits: [
-          "Entire infrastructure versioned in Git alongside application code",
-          "Reproducible deployments — destroy and recreate the stack in minutes",
-          "Built conceptual bridge to Terraform for future projects",
-          "samconfig.toml eliminates parameter re-entry on every deploy"
-        ]
+        'body': json.dumps(body)
+    }`
       },
-      {
-        title: "Input Security — Validation, Sanitization & Bot Detection",
-        problem: "A public API endpoint with no authentication is a target for spam bots, script injection attempts, and malicious payloads. Needed to protect DynamoDB from junk data and prevent XSS content from being stored or forwarded via SES.",
-        solution: "Implemented a multi-layer security approach in the Lambda handler: strict input validation (required fields, length limits, email format regex), HTML tag stripping and character escaping before any storage or email operations, and a honeypot field technique where bots that fill a hidden form field receive a fake 200 response while nothing is stored or processed.",
-        code: {
-          language: "python",
-          title: "Lambda Handler — Security Layer (app.py)",
-          content: `import json
-import re
+      benefits: [
+        "Every code path — success, validation failure, unexpected exception — returns a structured response",
+        "The frontend always receives a JSON body it can display rather than an opaque gateway error",
+        "The print() in the except block means every unhandled error is captured in CloudWatch with context"
+      ]
+    },
+    {
+      title: "sam deploy hanging in GitHub Actions",
+      problem: "The deploy step in the CI pipeline would start and then hang indefinitely with no output. The same command ran fine locally.",
+      solution: "sam deploy was waiting for interactive confirmation of the detected changeset — the same prompt that appears locally when infrastructure changes are found. In a non-interactive CI environment, nothing sends the confirmation keystroke, so the process waits forever. Adding --no-confirm-changeset removes the prompt. Adding --no-fail-on-empty-changeset prevents the pipeline from failing on pushes that contain only application code changes with no infrastructure diff.",
+      code: {
+        language: "yaml",
+        title: "GitHub Actions — deploy step with non-interactive flags",
+        content: `- name: Deploy
+  run: |
+    sam deploy \\
+      --no-confirm-changeset \\
+      --no-fail-on-empty-changeset
+  # samconfig.toml supplies all other parameters
+  # Credentials come from configure-aws-credentials step above`
+      },
+      benefits: [
+        "Pipeline completes reliably on every push — no manual intervention required",
+        "--no-fail-on-empty-changeset means a CSS change or README edit does not cause the deploy step to fail",
+        "samconfig.toml keeps the deploy command clean — all stack parameters are persisted, not repeated in the workflow"
+      ]
+    }
+  ],
+  
+  codeBlocks: [
+    {
+      title: "Input security — validation, sanitization, and honeypot",
+      language: "python",
+      code: `import re
 import html
-import boto3
-from datetime import datetime, timezone
 
-dynamodb = boto3.resource('dynamodb')
-ses = boto3.client('ses')
-
-def sanitize_input(text):
-    """Strip HTML tags and escape special characters."""
+def sanitize(text):
+    # Strip HTML tags, then escape remaining special characters
     clean = re.sub(r'<[^>]+>', '', str(text))
     return html.escape(clean.strip())
 
-def validate_email(email):
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
-    return re.match(pattern, email) is not None
+def valid_email(email):
+    return re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', email)
 
 def lambda_handler(event, context):
     body = json.loads(event.get('body', '{}'))
 
-    # Honeypot check — bots fill hidden fields, humans don't
+    # Honeypot: bots fill hidden fields, real users don't see them
     if body.get('honeypot'):
-        return {'statusCode': 200,
-                'body': json.dumps({'success': True, 'message': 'Message received.'})}
+        return build_response(200, {'success': True})  # Silent discard
 
-    name = body.get('name', '').strip()
-    email = body.get('email', '').strip()
+    name    = body.get('name', '').strip()
+    email   = body.get('email', '').strip()
     message = body.get('message', '').strip()
 
-    # Validation
     if not all([name, email, message]):
-        return {'statusCode': 400, 'body': json.dumps({'error': 'All fields required.'})}
+        return build_response(400, {'error': 'All fields are required.'})
     if len(name) > 100 or len(message) > 2000:
-        return {'statusCode': 400, 'body': json.dumps({'error': 'Input too long.'})}
-    if not validate_email(email):
-        return {'statusCode': 400, 'body': json.dumps({'error': 'Invalid email format.'})}
+        return build_response(400, {'error': 'Input exceeds length limit.'})
+    if not valid_email(email):
+        return build_response(400, {'error': 'Invalid email format.'})
 
-    # Sanitize before storage
-    clean_name = sanitize_input(name)
-    clean_message = sanitize_input(message)
+    # Sanitize before writing to DynamoDB or sending via SES
+    clean_name    = sanitize(name)
+    clean_message = sanitize(message)`
+    },
+    {
+      title: "DynamoDB write — item structure",
+      language: "python",
+      code: `import uuid
+import os
+from datetime import datetime, timezone
 
-    # Store in DynamoDB, send SES email...`
-        },
-        benefits: [
-          "XSS payloads neutralized before storage or email forwarding",
-          "Spam bots silently discarded — no storage, no email, no error that reveals detection",
-          "Rate limiting at API Gateway layer provides first line of defense",
-          "Defense-in-depth: multiple independent security layers"
-        ]
+def store_submission(name, email, message, event):
+    table = dynamodb.Table(os.environ['TABLE_NAME'])
+    table.put_item(Item={
+        'submission_id': str(uuid.uuid4()),           # Unique partition key
+        'timestamp': datetime.now(timezone.utc).isoformat(),
+        'name': name,                                  # Already sanitized
+        'email': email,                                # Validated format
+        'message': message,                            # Already sanitized
+        'source_ip': event['requestContext']['identity']['sourceIp']
+    })`
+    }
+  ],
+
+
+  costBreakdown: {
+    intro: "Serverless changes the cost model entirely — instead of paying for idle compute, you pay per invocation. At portfolio traffic levels, this stack runs for free.",
+    items: [
+      {
+        service: "AWS Lambda",
+        cost: "$0.00/mo",
+        note: "First 1M requests and 400,000 GB-seconds of compute are free every month — this function stays well inside that limit."
       },
       {
-        title: "Automated CI/CD for SAM Deployments",
-        problem: "Manually running sam build and sam deploy after every code change was tedious and error-prone. Needed a way to automatically deploy updates when pushing to GitHub, using the same credential security practices as the AWS portfolio project.",
-        solution: "Extended the GitHub Actions pattern from Project 1 to handle SAM deployments. The workflow configures AWS credentials from secrets, runs sam build to package the Lambda function, then sam deploy using the saved samconfig.toml configuration. Deploys are fully automated on push to main.",
-        code: {
-          language: "yaml",
-          title: "GitHub Actions — SAM Deploy Workflow (.github/workflows/deploy.yml)",
-          content: `name: Deploy Serverless API
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.13'
-
-      - name: Install AWS SAM CLI
-        run: pip install aws-sam-cli
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: \${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: \${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1
-
-      - name: Build SAM application
-        run: sam build
-
-      - name: Deploy to AWS
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset`
-        },
-        benefits: [
-          "Zero manual deployment steps after initial setup",
-          "Every Git push to main triggers a validated, reproducible deployment",
-          "AWS credentials stored as GitHub Secrets — never in source code",
-          "samconfig.toml stores all deploy parameters — no flags needed in CI"
-        ]
+        service: "Amazon API Gateway",
+        cost: "$0.00/mo",
+        note: "First 1M REST API calls per month are free for 12 months; $3.50 per million after that."
+      },
+      {
+        service: "Amazon DynamoDB",
+        cost: "$0.00/mo",
+        note: "On-demand billing with 25 GB storage and 25 WCU/RCU free per month — a contact form never gets close to these limits."
+      },
+      {
+        service: "Amazon SES",
+        cost: "$0.00/mo",
+        note: "First 62,000 emails per month are free when sent from a Lambda function — notification emails cost nothing at this volume."
+      },
+      {
+        service: "CloudWatch + SNS",
+        cost: "$0.00/mo",
+        note: "Basic metrics and first 5 GB of log ingestion are free; SNS first 1M notifications per month are free."
+      },
+      {
+        service: "AWS SAM / CloudFormation",
+        cost: "$0.00/mo",
+        note: "CloudFormation itself is free — you only pay for the resources it provisions."
       }
     ],
-
-//     codeBlocks: [
-//       {
-//         title: "DynamoDB Item Structure",
-//         language: "python",
-//         code: `# Item stored in DynamoDB for each valid submission
-// item = {
-//     'submission_id': str(uuid.uuid4()),      # Unique partition key
-//     'timestamp': datetime.now(timezone.utc).isoformat(),
-//     'name': clean_name,                       # HTML-sanitized
-//     'email': email,                           # Validated format
-//     'message': clean_message,                 # HTML-sanitized, max 2000 chars
-//     'source_ip': event['requestContext']['identity']['sourceIp'],
-//     'user_agent': event['headers'].get('User-Agent', 'unknown')
-// }`
-//       },
-//       {
-//         title: "IAM Least-Privilege Execution Role",
-//         language: "json",
-//         code: `{
-//   "Version": "2012-10-17",
-//   "Statement": [
-//     {
-//       "Effect": "Allow",
-//       "Action": ["dynamodb:PutItem"],
-//       "Resource": "arn:aws:dynamodb:ap-northeast-1:*:table/contact-submissions-*"
-//     },
-//     {
-//       "Effect": "Allow",
-//       "Action": ["ses:SendEmail", "ses:SendRawEmail"],
-//       "Resource": "arn:aws:ses:ap-northeast-1:*:identity/your-email@example.com"
-//     },
-//     {
-//       "Effect": "Allow",
-//       "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
-//       "Resource": "arn:aws:logs:*:*:*"
-//     }
-//   ]
-// }`
-//       }
-//     ],
-
-    metrics: [
-      { label: "Monthly Cost", value: "$0.00" },
-      { label: "Avg Response", value: "<300ms" },
-      { label: "Automation", value: "100%" },
-      { label: "AWS Services", value: "6" }
-    ],
-
-    lessons: [
-      "Serverless architecture patterns — event-driven design, stateless functions, and managed services",
-      "AWS SAM and CloudFormation — Infrastructure as Code for serverless resources",
-      "API Gateway configuration — REST APIs, throttling, CORS, and stage variables",
-      "DynamoDB data modeling — NoSQL design, on-demand capacity, and item structure",
-      "IAM least-privilege — scoping Lambda execution roles to the minimum required permissions",
-      "CI/CD with GitHub Actions — automated SAM deployments triggered on push",
-      "Security fundamentals — input validation, sanitization, rate limiting, and bot detection"
-    ]
+    total: "$0.00/mo",
+    footer: "This is a dev/learning environment running on AWS Free Tier. A production deployment handling thousands of daily submissions would still cost under $5/mo — serverless scales cost with traffic, not with time."
   },
-  // Add this entry to your projectsData object in project-data.js
-// Location: /projects/project-data.js
+
+  metrics: [
+    { value: "$0.00/mo",   label: "Operational cost" },
+    { value: "6",          label: "AWS services" },
+    { value: "<300ms",     label: "Avg response time" },
+    { value: "Automated",  label: "Deployments" }
+  ],
+
+
+  lessons: [
+    "SAM templates are more readable than raw CloudFormation, but when a deploy fails the error is in the CloudFormation stack events — not in SAM output. Knowing where to look saved significant debugging time.",
+    "IAM least-privilege is straightforward in theory but requires iteration in practice. The first working version used permissions that were too broad. Tightening them to specific resource ARNs meant going back to CloudWatch logs to confirm exactly what each service call needed.",
+    "CloudWatch logging should be deliberate, not accidental. Adding explicit print() statements at each stage of the handler — receive, validate, store, email — made it possible to isolate failures immediately instead of guessing which step failed.",
+    "The CI/CD pipeline pays off quickly. After the first manual deploy, every change was a git push. That feedback loop made iteration significantly faster than running sam deploy manually each time.",
+    "Serverless does not mean zero configuration. Cold starts, SES sandbox restrictions, IAM scope, and the Lambda-API Gateway response contract all required deliberate attention. Managed services still need to be understood."
+  ]
+
+  },
 
   "flask-ecs-api": {
     title: "Containerized REST API on AWS ECS",
@@ -697,6 +687,49 @@ jobs:
       }
     ],
 
+    costBreakdown: {
+      intro: "This project uses more AWS services than the others, and the VPC components — especially the NAT Gateway — make cost awareness a real engineering consideration, not just a footnote.",
+      items: [
+        {
+          service: "ECS Fargate",
+          cost: "~$8.90/mo",
+          note: "0.25 vCPU + 512 MB memory running 24/7 — cost drops to $0 when tasks are stopped, making this a dev environment you should turn off when not in use."
+        },
+        {
+          service: "NAT Gateway",
+          cost: "~$32.85/mo",
+          note: "Charged $0.045/hr regardless of traffic — the most expensive component. Replacing it with VPC Endpoints for ECR and Secrets Manager would eliminate this cost entirely for a project that only needs those two services."
+        },
+        {
+          service: "Application Load Balancer",
+          cost: "~$5.84/mo",
+          note: "Charged $0.008/hr plus LCU charges based on connections and bandwidth — minimal at dev traffic volumes."
+        },
+        {
+          service: "RDS PostgreSQL (db.t3.micro)",
+          cost: "~$0.00/mo",
+          note: "Free tier eligible for the first 12 months — $13.00/mo after that for the smallest available instance running continuously."
+        },
+        {
+          service: "Amazon ECR",
+          cost: "~$0.10/mo",
+          note: "First 500 MB of private storage free per month — a typical Flask image stays well under that limit."
+        },
+        {
+          service: "AWS Secrets Manager",
+          cost: "$0.40/mo",
+          note: "Each secret costs $0.40/mo regardless of how many times it is retrieved — one secret for DB credentials is the only cost here."
+        },
+        {
+          service: "GitHub Actions",
+          cost: "$0.00/mo",
+          note: "Free for public repositories — the full build-push-deploy pipeline runs at no cost."
+        }
+      ],
+      total: "~$48.09/mo",
+      footer: "This is a dev/learning environment — the NAT Gateway alone accounts for 68% of the cost. In production, VPC Endpoints for ECR and Secrets Manager would replace the NAT Gateway and cut this bill significantly."
+    },
+
     metrics: [
       { label: "Deployment time", value: "< 3 min" },
       { label: "Stored credentials", value: "Zero" },
@@ -710,82 +743,6 @@ jobs:
       "Debugging in AWS requires knowing which layer to look at. CloudWatch Logs for application errors, ECS service events for deployment failures, VPC route tables for network issues. I wasted time looking in the wrong place before I learned this.",
       "OIDC for CI/CD authentication is not just more secure — it is simpler. No IAM user to create, no keys to rotate, no risk of accidentally committing credentials. It should be the default approach.",
       "I would improve this project by replacing the NAT Gateway with VPC Endpoints for ECR and Secrets Manager — cheaper, more secure, and a better pattern for production environments. That is on the list for my next project with Terraform."
-    ]
-  },
-  // Template for future projects
-  "project-template": {
-    title: "Project Title Here",
-    tagline: "Brief description of the project",
-    badges: ["Tech1", "Tech2", "Tech3"],
-    
-    links: {
-      github: "https://github.com/username/repo",
-      demo: "https://demo-url.com" // optional
-    },
-    
-    overview: {
-      problem: "What problem does this solve?",
-      solution: "How did you solve it?",
-      results: [
-        "Result 1",
-        "Result 2",
-        "Result 3"
-      ]
-    },
-    
-    architecture: {
-      image: "/Resources/images/project-architecture.png",
-      description: "Explanation of the architecture"
-    },
-    
-    // Optional sections - only include if you have content
-    technicalDetails: [
-      {
-        service: "Technology Name",
-        details: "Details about how it's used"
-      }
-    ],
-    
-    features: [
-      {
-        title: "Feature Name",
-        description: "Feature description"
-      }
-    ],
-    
-    challenges: [
-      {
-        title: "Challenge Title",
-        problem: "What was the problem?",
-        solution: "How did you solve it?",
-        code: {
-          language: "yaml", // or "bash", "python", "javascript"
-          title: "Code Title",
-          content: `your code here`
-        },
-        benefits: [
-          "Benefit 1",
-          "Benefit 2"
-        ]
-      }
-    ],
-    
-    codeBlocks: [
-      {
-        title: "Code Block Title",
-        language: "python",
-        code: `# Your code here`
-      }
-    ],
-    
-    metrics: [
-      { label: "Metric 1", value: "Value 1" },
-      { label: "Metric 2", value: "Value 2" }
-    ],
-    
-    lessons: [
-      "Lesson learned 1",
-      "Lesson learned 2"
     ]
   }
 };
