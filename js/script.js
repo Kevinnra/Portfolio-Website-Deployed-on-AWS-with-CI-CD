@@ -76,3 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 updateNavbar(media)
+
+const projectsSection = document.querySelector('#projects');
+const viewProjectsBtn = document.querySelector('#view-projects-btn');
+
+if (projectsSection && viewProjectsBtn) {
+  const projectsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      viewProjectsBtn.classList.toggle('visible', !entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+
+  projectsObserver.observe(projectsSection);
+}
