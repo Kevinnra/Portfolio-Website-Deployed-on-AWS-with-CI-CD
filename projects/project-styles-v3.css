@@ -704,8 +704,9 @@ footer {
 
   /* Metrics 2-col */
   .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
-  .metric-card { min-width: unset; }
-  .metric-number { font-size: 2.2rem; }
+  .metric-card { min-width: 0; padding: 1.2rem 0.5rem; }
+  .metric-number { font-size: 1.3rem; white-space: nowrap; overflow: hidden; }
+  .metric-label { font-size: 0.72rem; white-space: nowrap; overflow: hidden; }
 
   /* Lightbox */
   .lightbox-close { top: 10px; right: 20px; font-size: 35px; }

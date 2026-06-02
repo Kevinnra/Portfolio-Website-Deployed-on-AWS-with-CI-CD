@@ -101,7 +101,7 @@ html{
 #navbar .accent-link{
   padding: 1rem 2rem;
   background: var(--transparent-color);
-  border-radius: 30px;
+  border-radius: 8px;
   border: 1px solid var(--transparent-color-line);
 }
 #navbar .accent-link:hover{
@@ -161,7 +161,7 @@ body {
   background: var(--transparent-color);
   color: var(--text-color);
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 8px;
   border: 1px solid var(--transparent-color-line);
 }
 .btn:hover{
@@ -314,12 +314,12 @@ body {
 .project-image {
   width: 100%;
   height: 250px;
-  background: linear-gradient(135deg, #1f2f76 0%, #2d1c3e 100%);
+  background: #0d0e1a;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  overflow: hidden;
 }
 
 .wip-text {
@@ -363,13 +363,14 @@ body {
   display: block;
   margin: 0 auto;
   border-radius: 20px;
-  max-block-size: 5em;
 }
 
 .project-badge {
   display: inline-block;
   margin-top: 0.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgba(214, 106, 18, 0.1);
+  border: 1px solid rgba(214, 106, 18, 0.3);
+  color: var(--bold-color);
   font-weight: lighter;
   padding: 0.2em 0.6em;
   border-radius: 5px;
@@ -407,7 +408,11 @@ body {
   margin-top: 30px;
 }
 
-.image-box:hover{
+.image-box:not(:has(.cert-link)) {
+  opacity: 0.75;
+}
+
+.image-box:has(.cert-link):hover {
   transform: translateY(-5px);
   transition: transform 0.4s;
 }
@@ -449,7 +454,7 @@ body {
 .contact-link {
   padding: 1rem 2rem;
   background: var(--transparent-color);
-  border-radius: 30px;
+  border-radius: 8px;
   text-decoration: none;
   color: var(--text-color);
   transition: all 0.3s;
