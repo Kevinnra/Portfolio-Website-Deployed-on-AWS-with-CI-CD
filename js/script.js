@@ -21,14 +21,20 @@ function updateNavbar(e){
   }
 }
 
+function toggleSidebar(){
+    navbar.classList.contains('show') ? closeSidebar() : openSidebar()
+}
+
 function openSidebar(){
     navbar.classList.add('show')
+    openButton.classList.add('open')
     openButton.setAttribute('aria-expanded', 'true')
     navbar.removeAttribute('inert')
 }
 
 function closeSidebar(){
     navbar.classList.remove('show')
+    openButton.classList.remove('open')
     openButton.setAttribute('aria-expanded', 'false')
     navbar.setAttribute('inert')
 }
