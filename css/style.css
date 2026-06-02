@@ -460,11 +460,18 @@ body {
   transition: all 0.3s;
   font-weight: bold;
   border: 1px solid var(--transparent-color-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
 }
+
+.contact-link svg { flex-shrink: 0; }
 
 .contact-link:hover {
   transform: translateY(-4px);
   border: solid 2px var(--accent-color);
+  color: var(--bold-color);
 }
 
 /* Contact Form Styles */
@@ -752,6 +759,11 @@ footer {
   text-align: center;
   flex: 1 1 200px;
   max-width: 210px;
+  border-color: var(--bold-color);
+  }
+
+  #submit-btn {
+    border-color: var(--bold-color);
   }
 
   .contact-container {
