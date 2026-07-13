@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <meta name="theme-color" content="#090a15"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090a15" />
   <title>Kevinn Ramirez – Portfolio</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
+
 <body>
   <!-- kevinn ramirez logo for mobile -->
   <div id="topbar-menu">
     <a href="#header" class="logo-for-mobile">KEVINN RAMIREZ</a>
-    <button
-    id="open-sidebar-button"
-    onclick="toggleSidebar()"
-    aria-label="open sidebar"
-    aria-expanded="false"
-    aria-controls="navbar">
+    <button id="open-sidebar-button" onclick="toggleSidebar()" aria-label="open sidebar" aria-expanded="false"
+      aria-controls="navbar">
       <span class="ham-line"></span>
       <span class="ham-line"></span>
       <span class="ham-line"></span>
@@ -38,7 +36,7 @@
       <a href="Resources/Kevinn-Ramirez-Resume.pdf" target="_blank" class="accent-link">Download Resume</a>
     </div>
   </nav>
-  
+
   <div id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
 
   <header id="header">
@@ -51,170 +49,196 @@
         <a href="#contact" class="btn">Get In Touch</a>
       </div>
     </div>
-    
+
   </header>
 
   <section class="section" id="about">
     <div class="section-divider">
-    <span class="line"></span>
-    <h2>About me</h2>
-    <span class="line"></span>
-  </div>
-  <div class="about-me-content">
-    <div class="about-text">
-      <p class="text-aboutme">
-        I build <strong>cloud infrastructure on AWS</strong>, from architecture design to CI/CD deployment.
-      </p>
-
-      <p>
-        <strong>AWS Cloud Practitioner certified</strong>, Harvard CS50P (Python), with hands-on experience
-        building <strong>production-ready serverless APIs</strong>, <strong>containerized workloads on ECS</strong>,
-        and <strong>automated CI/CD pipelines</strong>. Currently pursuing <strong>AWS Solutions Architect Associate</strong>
-        and <strong>Cisco CCNA</strong>.
-      </p>
-
-      <p>
-        My approach: <strong>Identify a challenge</strong> → <strong>Architect a cloud solution</strong> →
-        <strong>Build it</strong> → <strong>Document everything</strong>.
-      </p>
-
-      <p class="text-gray">Based in Tokyo · Open to remote or relocation</p>
-     
+      <span class="line"></span>
+      <h2>About me</h2>
+      <span class="line"></span>
     </div>
-    <div class="about-image">
-      <img src="Resources/images/Profile-Picture.png" alt="Profile picture" />
+    <div class="about-me-content">
+      <div class="about-text">
+        <p class="text-aboutme">
+          I build <strong>cloud infrastructure on AWS</strong>, from architecture design to CI/CD deployment.
+        </p>
+
+        <p>
+          <strong>AWS Cloud Practitioner certified</strong>, Harvard CS50P (Python), with hands-on experience
+          building <strong>production-ready serverless APIs</strong>, <strong>containerized workloads on ECS</strong>,
+          and <strong>automated CI/CD pipelines</strong>. Currently pursuing <strong>AWS Solutions Architect
+            Associate</strong>
+          and <strong>Cisco CCNA</strong>.
+        </p>
+
+        <p>
+          My approach: <strong>Identify a challenge</strong> → <strong>Architect a cloud solution</strong> →
+          <strong>Build it</strong> → <strong>Document everything</strong>.
+        </p>
+
+        <p class="text-gray">Based in Tokyo · Open to remote or relocation</p>
+
+      </div>
+      <div class="about-image">
+        <img src="Resources/images/Profile-Picture.png" alt="Profile picture" />
+      </div>
     </div>
-  </div>
   </section>
 
   <section class="section" id="skills">
     <div class="section-divider">
       <span class="line"></span>
-    <h2>Expertise</h2>
-    <span class="line"></span>
+      <h2>Expertise</h2>
+      <span class="line"></span>
     </div>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h3>Cloud Architecture & Deployment</h3>
-                <p>
-                  Designing and deploying scalable AWS infrastructure. I build cloud native solutions that prioritize security,
-                  cost-optimization, and high availability. Transforming business requirements
-                  into production ready architecture.
-                </p>
-                <p class="skill-tags">EC2 · S3 · VPC · RDS · CloudFront · Route 53 · ECS · Load Balancing</p>
-            </div>
-            <div class="skill-card">
-                <h3>Python Automation & Scripting</h3>
-                <p>
-                  Automating repetitive IT tasks and cloud workflows with Python. From API
-                  integrations to AWS resource management scripts,
-                  I eliminate manual processes and build tools that save time and reduce
-                  human error.
-                </p>
-                <p class="skill-tags">boto3 · Lambda · GitHub Actions · REST APIs · AWS SDK</p>
-            </div>
-            <div class="skill-card">
-                <h3>Infrastructure as Code (IaC)</h3>
-                <p>
-                  Designing and managing reproducible, version-controlled infrastructure using Terraform and CloudFormation. Focused on DevOps best practices, automated pipelines, and consistent, reliable deployments across environments.
-                </p>
-                <p class="skill-tags">Terraform · CloudFormation · SAM · Git · CI/CD pipelines</p>
-            </div>
-            <div class="skill-card">
-                <h3>Cloud Security & Optimization</h3>
-                <p>
-                  Implementing AWS security best practices with deep IAM and VPC expertise, enforcing least-privilege access. I optimize cloud costs without sacrificing performance, designing
-                  solutions that are both secure and economical.
-                </p>
-                <p class="skill-tags">IAM · VPC · Security Groups · Cost Explorer · CloudWatch · Least-Privilege</p>
-            </div>
-        </div>
-    </section>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Cloud Architecture & Deployment</h3>
+        <p>
+          Designing and deploying scalable AWS infrastructure. I build cloud native solutions that prioritize security,
+          cost-optimization, and high availability. Transforming business requirements
+          into production ready architecture.
+        </p>
+        <p class="skill-tags">EC2 · S3 · VPC · RDS · CloudFront · Route 53 · ECS · Load Balancing</p>
+      </div>
+      <div class="skill-card">
+        <h3>Python Automation & Scripting</h3>
+        <p>
+          Automating repetitive IT tasks and cloud workflows with Python. From API
+          integrations to AWS resource management scripts,
+          I eliminate manual processes and build tools that save time and reduce
+          human error.
+        </p>
+        <p class="skill-tags">boto3 · Lambda · GitHub Actions · REST APIs · AWS SDK</p>
+      </div>
+      <div class="skill-card">
+        <h3>Infrastructure as Code (IaC)</h3>
+        <p>
+          Designing and managing reproducible, version-controlled infrastructure using Terraform and CloudFormation.
+          Focused on DevOps best practices, automated pipelines, and consistent, reliable deployments across
+          environments.
+        </p>
+        <p class="skill-tags">Terraform · CloudFormation · SAM · Git · CI/CD pipelines</p>
+      </div>
+      <div class="skill-card">
+        <h3>Cloud Security & Optimization</h3>
+        <p>
+          Implementing AWS security best practices with deep IAM and VPC expertise, enforcing least-privilege access. I
+          optimize cloud costs without sacrificing performance, designing
+          solutions that are both secure and economical.
+        </p>
+        <p class="skill-tags">IAM · VPC · Security Groups · Cost Explorer · CloudWatch · Least-Privilege</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Projects Section -->
-  <section class="section"id="projects">
+  <section class="section" id="projects">
     <div class="section-divider">
       <span class="line"></span>
 
-    <h2>Projects / Portfolio</h2>
-    <span class="line"></span>
+      <h2>Projects / Portfolio</h2>
+      <span class="line"></span>
     </div>
 
     <div class="project-grid">
 
       <div class="project-card">
-          <div class="project-image">
-            <a class="project-image-link" href="/projects/project-v3.html?id=aws-portfolio">
-              <img class="card-image" src="Resources/images/Architecture-Diagram-AWS-dark.jpg" alt="Project banner"/>
-            </a>
-          </div>
-          <div class="project-content">
-              <h3>Personal Portfolio Hosting on AWS with automated CI/CD pipeline</h3>
-              <span class="project-badge">S3</span>
-              <span class="project-badge">Route 53</span>
-              <span class="project-badge">CloudFront</span>
-              <span class="project-badge">GitHub Actions</span>
-              <span class="project-badge">IAM</span>
-              <span class="project-badge">CI/CD</span>
-              
-              <p>Hosted a static portfolio website on AWS S3 for highly available, low-cost web hosting.</p>
-              <a href="/projects/project-v3.html?id=aws-portfolio" class="project-link">View Project →</a>
-          </div>
+        <div class="project-image">
+          <a class="project-image-link" href="/projects/project-v3.html?id=aws-portfolio">
+            <img class="card-image" src="Resources/images/Architecture-Diagram-AWS-dark.jpg" alt="Project banner" />
+          </a>
+        </div>
+        <div class="project-content">
+          <h3>Personal Portfolio Hosting on AWS with automated CI/CD pipeline</h3>
+          <span class="project-badge">S3</span>
+          <span class="project-badge">Route 53</span>
+          <span class="project-badge">CloudFront</span>
+          <span class="project-badge">GitHub Actions</span>
+          <span class="project-badge">IAM</span>
+          <span class="project-badge">CI/CD</span>
+
+          <p>Hosted a static portfolio website on AWS S3 for highly available, low-cost web hosting.</p>
+          <a href="/projects/project-v3.html?id=aws-portfolio" class="project-link">View Project →</a>
+        </div>
       </div>
       <div class="project-card">
-          <div class="project-image">
-            <a class="project-image-link" href="/projects/project-v3.html?id=serverless-api">
-              <img class="card-image" src="Resources/images/contact-form-v2.jpg" alt="Project banner"/>
-            </a>
-          </div>
-          <div class="project-content">
-              <h3>Serverless Contact Form API</h3>
-              <span class="project-badge">AWS Lambda</span>
-              <span class="project-badge">API Gateway</span>
-              <span class="project-badge">DynamoDB</span>
-              <span class="project-badge">Amazon SES</span>
-              <span class="project-badge">CloudWatch</span>
-              <span class="project-badge">CloudFormation/SAM</span>
-              <span class="project-badge">Python</span>
-              <span class="project-badge">CI/CD</span>
-              <p> Production-ready REST API built with AWS Lambda, DynamoDB,and automated CloudFormation deployment</p>
-              <a href="/projects/project-v3.html?id=serverless-api" class="project-link">View Project →</a>
-          </div>
+        <div class="project-image">
+          <a class="project-image-link" href="/projects/project-v3.html?id=serverless-api">
+            <img class="card-image" src="Resources/images/contact-form-v2.jpg" alt="Project banner" />
+          </a>
+        </div>
+        <div class="project-content">
+          <h3>Serverless Contact Form API</h3>
+          <span class="project-badge">AWS Lambda</span>
+          <span class="project-badge">API Gateway</span>
+          <span class="project-badge">DynamoDB</span>
+          <span class="project-badge">Amazon SES</span>
+          <span class="project-badge">CloudWatch</span>
+          <span class="project-badge">CloudFormation/SAM</span>
+          <span class="project-badge">Python</span>
+          <span class="project-badge">CI/CD</span>
+          <p> Production-ready REST API built with AWS Lambda, DynamoDB,and automated CloudFormation deployment</p>
+          <a href="/projects/project-v3.html?id=serverless-api" class="project-link">View Project →</a>
+        </div>
       </div>
       <div class="project-card">
-          <div class="project-image">
-            <a class="project-image-link" href="/projects/project-v3.html?id=flask-ecs-api">
-              <img class="card-image" src="Resources/images/flask-ecs-architecture.jpg" style="max-width: 1000%;" alt="Project banner"/>
-            </a>
-          </div>
-          <div class="project-content">
-              <h3>Containerized Flask API on AWS ECS</h3>
-              <span class="project-badge">Docker</span>
-              <span class="project-badge">ECS Fargate</span>
-              <span class="project-badge">ECR</span>
-              <span class="project-badge">RDS PostgreSQL</span>
-              <span class="project-badge">VPC</span>
-              <span class="project-badge">ALB</span>
-              <span class="project-badge">Python/Flask</span>
-              <span class="project-badge">CI/CD</span>
-              <p>Containerized Python REST API deployed on ECS Fargate inside a secure VPC with RDS database and automated CI/CD pipeline.</p>
-              <a href="/projects/project-v3.html?id=flask-ecs-api" class="project-link">View Project →</a>
-          </div>
+        <div class="project-image">
+          <a class="project-image-link" href="/projects/project-v3.html?id=flask-ecs-api">
+            <img class="card-image" src="Resources/images/flask-ecs-architecture.jpg" style="max-width: 1000%;"
+              alt="Project banner" />
+          </a>
+        </div>
+        <div class="project-content">
+          <h3>Containerized Flask API on AWS ECS</h3>
+          <span class="project-badge">Docker</span>
+          <span class="project-badge">ECS Fargate</span>
+          <span class="project-badge">ECR</span>
+          <span class="project-badge">RDS PostgreSQL</span>
+          <span class="project-badge">VPC</span>
+          <span class="project-badge">ALB</span>
+          <span class="project-badge">Python/Flask</span>
+          <span class="project-badge">CI/CD</span>
+          <p>Containerized Python REST API deployed on ECS Fargate inside a secure VPC with RDS database and automated
+            CI/CD pipeline.</p>
+          <a href="/projects/project-v3.html?id=flask-ecs-api" class="project-link">View Project →</a>
+        </div>
       </div>
-  </div>
-      
+      <div class="project-card">
+        <div class="project-image">
+          🏗️
+          <p class="wip-text">// under development</p>
+        </div>
+        <div class="project-content">
+          <h3>Multi-Environment AWS Infrastructure with Terraform</h3>
+          <span class="project-badge">Terraform</span>
+          <span class="project-badge">EC2</span>
+          <span class="project-badge">Auto Scaling</span>
+          <span class="project-badge">RDS PostgreSQL</span>
+          <span class="project-badge">ALB</span>
+          <span class="project-badge">VPC</span>
+          <span class="project-badge">GitHub Actions</span>
+          <span class="project-badge">CloudWatch</span>
+          <p>Complete 3-tier AWS infrastructure built entirely with Terraform, deployed across dev and prod environments
+            with automated CI/CD pipeline.</p>
+          <a href="/projects/project-v3.html?id=terraform-iac" class="project-link">View Project →</a>
+        </div>
+      </div>
+    </div>
+
   </section>
 
 
   <section class="section" id="certifications">
 
     <div class="section-divider">
-    <span class="line"></span>
-    <h2>Certifications</h2>
-    <span class="line"></span>
+      <span class="line"></span>
+      <h2>Certifications</h2>
+      <span class="line"></span>
     </div>
 
-    
+
     <div class="images-container">
       <div class="image-box">
         <a href="https://certificates.cs50.io/ca8c5d24-3b2a-4dca-ac0e-8ff8af52a86c.pdf?size=letter" target="_blank">
@@ -222,15 +246,17 @@
         <h3 class="cert-code">CS50P</h3>
         <h4 class="cert-place_and_name">Harvard University / edX - Python</h4>
         <p class="course-status">Completed - January 2025</p>
-        <a class="cert-link" href="https://certificates.cs50.io/ca8c5d24-3b2a-4dca-ac0e-8ff8af52a86c.pdf?size=letter" target="_blank">View certification</a>
+        <a class="cert-link" href="https://certificates.cs50.io/ca8c5d24-3b2a-4dca-ac0e-8ff8af52a86c.pdf?size=letter"
+          target="_blank">View certification</a>
       </div>
-      <div  class="image-box">
+      <div class="image-box">
         <a href="https://www.credly.com/badges/58875f78-3ad9-47da-bc3a-877eb96cd58a/embedded" target="_blank">
           <img src="Resources/images/aws-certified-cloud-practitioner.png"></a>
         <h3 class="cert-code">AWS CLF-C02</h3>
         <h4 class="cert-place_and_name">AWS - Certified Cloud Practitioner</h4>
         <p class="course-status">Completed - January 2026</p>
-        <a class="cert-link" href="https://www.credly.com/badges/58875f78-3ad9-47da-bc3a-877eb96cd58a/embedded" target="_blank">View certification</a>
+        <a class="cert-link" href="https://www.credly.com/badges/58875f78-3ad9-47da-bc3a-877eb96cd58a/embedded"
+          target="_blank">View certification</a>
       </div>
       <div class="image-box">
         <img src="Resources/images/AWS_SAA.png" alt="AWS Solutions Architect Associate badge">
@@ -250,84 +276,74 @@
   <section class="section" id="contact">
 
     <div class="section-divider">
-    <span class="line"></span>
-    <h2>Contact</h2>
-    <span class="line"></span>
+      <span class="line"></span>
+      <h2>Contact</h2>
+      <span class="line"></span>
     </div>
-    
-    <div class="contact-links">
-        <!-- <a href="mailto:admin@kevinnramirez.com" class="contact-link">Email Me</a> -->
-        <a href="https://www.linkedin.com/in/kevinnramirez/" target="_blank" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://github.com/kevinnra" target="_blank" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          GitHub
-        </a>
-        <a href="Resources/Kevinn-Ramirez-Resume.pdf" target="_blank" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-          Resume | CV
-        </a>
-    </div>
-    
-    <div class="contact-container">
-    <p class="contact-intro">
-      Have a question or want to work together? Send me a message!
-    </p>
-    
-    <form id="contact-form" class="contact-form">
-      <div class="form-group">
-        <label for="name">Name *</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          required 
-          placeholder="Your Name"
-        />
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email *</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          required 
-          placeholder="your.email@example.com"
-        />
-      </div>
-      
-      <div class="form-group">
-        <label for="message">Message *</label>
-        <textarea 
-          id="message" 
-          name="message" 
-          required 
-          rows="5"
-          placeholder="Your message here..."
-        ></textarea>
-      </div>
 
-      <!-- Honeypot field for spam prevention (hidden from users) -->
-      <input 
-        type="text" 
-        name="honeypot" 
-        id="honeypot" 
-        style="display: none;" 
-        tabindex="-1" 
-        autocomplete="off"
-      />
-      
-      <button type="submit" class="btn btn-primary" id="submit-btn">
-        <span class="btn-text">Send Message</span>
-        <span class="btn-loading" style="display: none;">Sending...</span>
-      </button>
-      
-      <div id="form-message" class="form-message" style="display: none;"></div>
-    </form>
-  </div>
+    <div class="contact-links">
+      <!-- <a href="mailto:admin@kevinnramirez.com" class="contact-link">Email Me</a> -->
+      <a href="https://www.linkedin.com/in/kevinnramirez/" target="_blank" class="contact-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+          aria-hidden="true">
+          <path
+            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/kevinnra" target="_blank" class="contact-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+          aria-hidden="true">
+          <path
+            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+        </svg>
+        GitHub
+      </a>
+      <a href="Resources/Kevinn-Ramirez-Resume.pdf" target="_blank" class="contact-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <line x1="10" y1="9" x2="8" y2="9" />
+        </svg>
+        Resume | CV
+      </a>
+    </div>
+
+    <div class="contact-container">
+      <p class="contact-intro">
+        Have a question or want to work together? Send me a message!
+      </p>
+
+      <form id="contact-form" class="contact-form">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Your Name" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required placeholder="your.email@example.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required rows="5" placeholder="Your message here..."></textarea>
+        </div>
+
+        <!-- Honeypot field for spam prevention (hidden from users) -->
+        <input type="text" name="honeypot" id="honeypot" style="display: none;" tabindex="-1" autocomplete="off" />
+
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          <span class="btn-text">Send Message</span>
+          <span class="btn-loading" style="display: none;">Sending...</span>
+        </button>
+
+        <div id="form-message" class="form-message" style="display: none;"></div>
+      </form>
+    </div>
   </section>
 
   <footer>
@@ -340,4 +356,5 @@
   <script src="js/contact-form.js" defer></script>
 
 </body>
+
 </html>

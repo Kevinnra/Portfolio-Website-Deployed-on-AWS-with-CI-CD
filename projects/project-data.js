@@ -6,17 +6,17 @@ const projectsData = {
     title: "AWS Cloud Portfolio with CI/CD Pipeline",
     tagline: "Production-ready static website with automated deployment and intelligent cache invalidation",
     badges: ["AWS S3", "CloudFront", "Route 53", "GitHub Actions", "IAM"],
-    
+
     links: {
       github: "https://github.com/Kevinnra/Kevinnra.github.io",
       demo: "https://www.kevinnramirez.com"
     },
-    
+
     overview: {
       problem: "Traditional web hosting requires managing servers, manual deployments, and lacks global performance optimization. Manual cache invalidation wastes time and money by clearing entire CDN distributions instead of just changed files.",
-      
+
       solution: "Built a serverless architecture using AWS S3 for hosting, CloudFront for global content delivery, and Route 53 for DNS management. Implemented automated CI/CD pipeline with GitHub Actions that detects modified files via Git comparison and performs intelligent cache invalidation.",
-      
+
       results: [
         "99.99% availability via CloudFront CDN",
         "Sub-second global load times",
@@ -25,12 +25,11 @@ const projectsData = {
         "80% reduction in cache invalidation costs"
       ]
     },
-    
+
     architecture: {
       image: "/Resources/images/Architecture-Diagram-AWS-dark.jpg",
-      description: "S3 serves as the origin server storing website files with versioning and encryption enabled. CloudFront delivers content globally through 450+ edge locations, caching static assets for fast access. Route 53 manages DNS routing with Alias records pointing to the CloudFront distribution. GitHub Actions orchestrates the deployment pipeline, syncing files to S3 and invalidating only changed CloudFront paths."
     },
-    
+
     // OPTIONAL: Technical Details
     technicalDetails: [
       {
@@ -54,7 +53,7 @@ const projectsData = {
         details: "Dedicated IAM user for GitHub Actions with least-privilege policy allowing only S3 sync and CloudFront invalidation, following security best practices with credentials stored as GitHub Secrets"
       }
     ],
-    
+
     challenges: [
       {
         title: "Challenge #1: Outdated CSS After Deployments",
@@ -120,7 +119,7 @@ const projectsData = {
         ]
       }
     ],
-    
+
     // OPTIONAL: Code Deep Dive
     codeBlocks: [
       {
@@ -207,11 +206,11 @@ const projectsData = {
     }'`
       }
     ],
-    
+
     // Cost breakdown section
     costBreakdown: {
       intro: "Cost awareness is critical for cloud infrastructure. This project demonstrates strategic use of AWS Free Tier while maintaining production-grade performance and availability.",
-      
+
       items: [
         {
           service: "S3 Storage",
@@ -249,18 +248,18 @@ const projectsData = {
           note: "Standard DNS queries within Free Tier (1M queries/month included)"
         }
       ],
-      
+
       total: "$0.56/month",
       note: "This is a dev/learning environment. Production workloads with higher traffic and multi-region redundancy would cost significantly more."
     },
-    
+
     metrics: [
       { label: "Uptime", value: "99.99%" },
       { label: "Load Time", value: "<1s" },
       { label: "Monthly Cost", value: "$0.56" },
       { label: "Automation", value: "100%" }
     ],
-    
+
     lessons: [
       "DNS propagation takes 24-48 hours globally — plan deployments ahead rather than expecting instant updates after Route 53 changes",
       "CloudFront caching is critical — invalidating only changed paths instead of entire distribution reduced costs by 80% and improved deployment speed",
@@ -289,7 +288,7 @@ const projectsData = {
 
     links: {
       github: "https://github.com/Kevinnra/Serverless-Contact-Form-API",
-      demo:   "https://kevinnramirez.com/#contact"
+      demo: "https://kevinnramirez.com/#contact"
     },
 
     architecture: {
@@ -302,10 +301,10 @@ const projectsData = {
     // metric.value → .metric-number | metric.label → .metric-label
 
     metrics: [
-      { value: "$0.00/mo",   label: "Operational cost"  },
-      { value: "6",          label: "AWS services"       },
-      { value: "<300ms",     label: "Avg response time"  },
-      { value: "Automated",  label: "Deployments"        }
+      { value: "$0.00/mo", label: "Operational cost" },
+      { value: "6", label: "AWS services" },
+      { value: "<300ms", label: "Avg response time" },
+      { value: "Automated", label: "Deployments" }
     ],
 
     // ── OVERVIEW ──────────────────────────────────────────────────────────────
@@ -385,7 +384,7 @@ const projectsData = {
           language: "json",
           title: "Least-privilege SES permission in the Lambda execution role",
           content:
-  `{
+            `{
     "Effect": "Allow",
     "Action": [
       "ses:SendEmail",
@@ -415,7 +414,7 @@ const projectsData = {
           language: "python",
           title: "Handler structure — catch-all ensures a valid response on every code path",
           content:
-  `def lambda_handler(event, context):
+            `def lambda_handler(event, context):
       try:
           # All handler logic runs here
           return build_response(200, {"success": True, "message": "Thank you!"})
@@ -455,7 +454,7 @@ const projectsData = {
           language: "yaml",
           title: "GitHub Actions deploy step — non-interactive flags",
           content:
-  `- name: Deploy
+            `- name: Deploy
     run: |
       sam deploy \\
         --no-confirm-changeset \\
@@ -480,7 +479,7 @@ const projectsData = {
         title: "Input security — validation, sanitization, and honeypot",
         language: "python",
         code:
-  `import re, html, json
+          `import re, html, json
 
   def sanitize(text):
       # Strip HTML tags, then escape remaining special characters
@@ -515,7 +514,7 @@ const projectsData = {
         title: "DynamoDB write — item structure",
         language: "python",
         code:
-  `import uuid, os, boto3
+          `import uuid, os, boto3
   from datetime import datetime, timezone
 
   dynamodb = boto3.resource("dynamodb")
@@ -547,33 +546,33 @@ const projectsData = {
       items: [
         {
           service: "AWS Lambda",
-          cost:    "$0.00",
-          note:    "Free Tier covers 1M requests/month — portfolio traffic is well within this limit"
+          cost: "$0.00",
+          note: "Free Tier covers 1M requests/month — portfolio traffic is well within this limit"
         },
         {
           service: "Amazon API Gateway",
-          cost:    "$0.00",
-          note:    "Free Tier covers 1M REST API calls/month for the first 12 months"
+          cost: "$0.00",
+          note: "Free Tier covers 1M REST API calls/month for the first 12 months"
         },
         {
           service: "Amazon DynamoDB",
-          cost:    "$0.00",
-          note:    "On-demand billing — Free Tier covers 25 WCU/RCU; portfolio write volume is negligible"
+          cost: "$0.00",
+          note: "On-demand billing — Free Tier covers 25 WCU/RCU; portfolio write volume is negligible"
         },
         {
           service: "Amazon SES",
-          cost:    "$0.00",
-          note:    "Free Tier covers 3,000 messages/month sent from a Lambda function"
+          cost: "$0.00",
+          note: "Free Tier covers 3,000 messages/month sent from a Lambda function"
         },
         {
           service: "Amazon CloudWatch",
-          cost:    "$0.00",
-          note:    "Free Tier covers 5GB log ingestion/month and 10 custom alarms"
+          cost: "$0.00",
+          note: "Free Tier covers 5GB log ingestion/month and 10 custom alarms"
         },
         {
           service: "Amazon SNS",
-          cost:    "$0.00",
-          note:    "Free Tier covers 1,000 email notifications/month"
+          cost: "$0.00",
+          note: "Free Tier covers 1,000 email notifications/month"
         }
       ],
 
@@ -842,10 +841,10 @@ const projectsData = {
 
     // ── METRICS ───────────────────────────────────────────────────────────────
     metrics: [
-      { label: "Deployment time",    value: "< 3 min" },
-      { label: "Stored credentials", value: "Zero"    },
-      { label: "AWS services",       value: "9"        },
-      { label: "Subnet tiers",       value: "2"        }
+      { label: "Deployment time", value: "< 3 min" },
+      { label: "Stored credentials", value: "Zero" },
+      { label: "AWS services", value: "9" },
+      { label: "Subnet tiers", value: "2" }
     ],
 
     // ── 6. SUMMARY + LESSONS LEARNED ─────────────────────────────────────────
@@ -858,5 +857,111 @@ const projectsData = {
       "Debugging containerized deployments means knowing which layer to look at first. CloudWatch Logs for application errors, ECS service events for task startup failures, VPC route tables for network connectivity. Looking in the wrong layer wastes time.",
       "OIDC for CI/CD is not just more secure than stored access keys — it is simpler. No IAM user to create, no keys to rotate, no risk of accidental commits. It should be the default approach for any pipeline connecting to AWS."
     ]
+  },
+  "terraform-iac": {
+    title: "Multi-Environment AWS Infrastructure with Terraform",
+    tagline: "Infrastructure as Code with Terraform — EC2, Auto Scaling, RDS, and ALB across dev and prod environments. Currently in development.",
+
+    badges: [
+      "Terraform",
+      "EC2",
+      "Auto Scaling Group",
+      "RDS PostgreSQL",
+      "ALB",
+      "VPC",
+      "GitHub Actions",
+      "CloudWatch",
+      "IAM OIDC"
+    ],
+
+    links: {
+      github: "https://github.com/Kevinnra/project-4-terraform-iac"
+    },
+
+    overview: {
+      problem: "Manually deploying cloud infrastructure through the AWS Console does not scale. Every environment requires repeating the same steps, configurations drift over time, and there is no version history of what changed or why.",
+      solution: "This project provisions a complete multi-tier AWS architecture using Terraform — the most widely requested Infrastructure as Code tool in cloud engineering job descriptions. The same module code deploys to both dev and prod environments using different variable files, with GitHub Actions running terraform plan on pull requests and terraform apply on merge. This project is currently under active development.",
+      results: [
+        "🚧 Currently in development — check back for updates",
+        "Full infrastructure defined as code: VPC, subnets, EC2, Auto Scaling Group, RDS, ALB",
+        "Two environments (dev and prod) from the same Terraform module code",
+        "Remote state management with S3 backend and DynamoDB state locking",
+        "GitHub Actions CI/CD: terraform plan on PR, terraform apply on merge via OIDC"
+      ]
+    },
+
+    architecture: {
+      image: "/Resources/images/terraform-iac-architecture.jpg",
+      description: "Traffic enters through an Application Load Balancer in public subnets across two Availability Zones. The ALB forwards requests to EC2 instances managed by an Auto Scaling Group. RDS PostgreSQL sits in private subnets, reachable only from the EC2 security group. All resources are defined in reusable Terraform modules and provisioned through a GitHub Actions pipeline authenticated via OIDC — no stored AWS credentials anywhere in the pipeline."
+    },
+
+    technicalDetails: [
+      {
+        service: "Terraform Modules",
+        details: "Infrastructure is organized into reusable modules: vpc, security-groups, alb, compute (EC2 + ASG), and database (RDS). Each module exposes input variables and outputs, allowing dev and prod environments to share the same code with different configurations passed through environment-specific tfvars files."
+      },
+      {
+        service: "Remote State Backend",
+        details: "Terraform state is stored in an S3 bucket with DynamoDB state locking. This prevents state corruption when multiple pipeline runs execute simultaneously and ensures the state file is never lost if the local machine changes."
+      },
+      {
+        service: "EC2 + Auto Scaling Group",
+        details: "EC2 instances run the Flask API via a user_data startup script. The Auto Scaling Group maintains a minimum of one healthy instance and replaces failed instances automatically — directly answering the interview question: what happens when a server goes down?"
+      },
+      {
+        service: "Application Load Balancer",
+        details: "The ALB distributes traffic across EC2 instances in two Availability Zones and performs health checks that feed into ASG replacement logic. EC2 security groups block all direct access — only traffic originating from the ALB security group is allowed on the application port."
+      },
+      {
+        service: "RDS PostgreSQL",
+        details: "The database runs in private subnets with a security group that accepts connections only from the EC2 security group — not from a CIDR range, not from the internet. Security group chaining means permissions follow resources regardless of IP changes."
+      },
+      {
+        service: "GitHub Actions + OIDC",
+        details: "The CI/CD pipeline authenticates via OIDC — no AWS access keys stored in GitHub. On every pull request the pipeline runs terraform fmt, terraform validate, and terraform plan, posting the plan output as a PR comment. On merge to main, terraform apply runs automatically."
+      }
+    ],
+
+    costBreakdown: {
+      intro: "Cost control is treated as a first-class engineering concern in this project. The most expensive component in a typical 3-tier VPC setup is the NAT Gateway — this project eliminates it entirely as a deliberate architectural decision.",
+      items: [
+        {
+          service: "EC2 t3.micro (ASG)",
+          cost: "~$0.14/day",
+          note: "Charged only during active development sessions — destroyed at the end of each working session to eliminate idle cost."
+        },
+        {
+          service: "RDS db.t3.micro",
+          cost: "~$0.21/day",
+          note: "Single-AZ, smallest available instance. Free tier eligible for first 12 months. Destroyed after each working session."
+        },
+        {
+          service: "Application Load Balancer",
+          cost: "~$0.19/day",
+          note: "Charged per hour plus LCU — minimal at dev traffic volumes. Destroyed after each session."
+        },
+        {
+          service: "NAT Gateway",
+          cost: "$0.00",
+          note: "Deliberately excluded. EC2 in public subnets with strict security group chaining eliminates the need — removing the single largest cost driver (~$33/mo) in a typical VPC setup."
+        },
+        {
+          service: "S3 State Backend + DynamoDB",
+          cost: "~$0.01/mo",
+          note: "The only permanently running infrastructure. S3 stores Terraform state, DynamoDB prevents concurrent apply conflicts."
+        }
+      ],
+      total: "~$5–10 total",
+      footer: "Total project cost is kept under $10 by destroying all compute and database resources after each working session. Only the state backend remains permanently running."
+    },
+
+    metrics: [
+      { label: "Status", value: "Building" },
+      { label: "Environments", value: "Dev + Prod" },
+      { label: "AWS Services", value: "8+" },
+      { label: "NAT Gateway Cost", value: "$0.00" }
+    ],
+
+    lessons: []
   }
 };
