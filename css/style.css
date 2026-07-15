@@ -4,10 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
-:root{
+:root {
   --hover-color: #1e2035;
   --accent-color: #af4f00;
-  --bold-color:#d66a12ea;
+  --bold-color: #d66a12ea;
   --text-color: #c9c9c9;
   --t-color: #e3e717ea;
   --text-gray: #9aa0a6;
@@ -20,30 +20,31 @@
   --Changa: "Changa One", italic;
   --Kanit: "Kanit", sans-serif;
 }
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 
 }
 
-html{
+html {
   font-family: var(--Poppins);
   color: var(--text-color);
 }
 
 
 /* hides kevinn ramirez logo when screen is desktop size */
-.logo-for-mobile{
+.logo-for-mobile {
   display: none;
 }
 
 /* hides equis X logo container in desktop size */
-.X-button-container{
+.X-button-container {
   display: none;
 }
 
-#navbar{
+#navbar {
   position: fixed;
   top: 0;
   width: 100%;
@@ -68,13 +69,13 @@ html{
 
 
 /* navigation links */
-#navbar ul{
+#navbar ul {
   display: flex;
   list-style: none;
-  font-weight: 200;
+  /* font-weight: 200; */
 }
 
-#navbar a{
+#navbar a {
   display: flex;
   font-family: var(--Kanit);
   font-optical-sizing: auto;
@@ -83,31 +84,30 @@ html{
   padding: 0.5rem 2rem;
 }
 
-#navbar a:hover{
+#navbar a:hover {
   transition: all 0.4s ease;
-  font-weight: bold;
+  color: var(--fullwhite);
+  transform: translateY(-2px);
 }
 
-.logo a{
+.logo a {
   padding: 0;
   font-weight: 600;
 }
 
-.logo a:hover{
-  font-weight: 600;
-}
 
 /* download resume link */
-#navbar .accent-link{
-  padding: 1rem 2rem;
+#navbar .accent-link {
+  padding: 0.6rem 1rem;
   background: var(--transparent-color);
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid var(--transparent-color-line);
+  transition: opacity 0.4s ease, transform 0.3s ease, background 0.2s;
+
 }
-#navbar .accent-link:hover{
-  transform: translateY(-3px);
+
+#navbar .accent-link:hover {
   border: 1px solid var(--accent-color);
-  font-weight: 200;
 }
 
 body {
@@ -115,12 +115,18 @@ body {
   padding: 0;
   line-height: 1.6;
   background-color: #090a15;
-  background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='25' height='13' patternTransform='scale(4) rotate(70)'><rect x='0' y='0' width='100%' height='100%' fill='%23090a15ff'/><path d='M15.044 22.25a2.5 2.5 0 01-2.5 2.5 2.5 2.5 0 01-2.5-2.5 2.5 2.5 0 012.5-2.5 2.5 2.5 0 012.5 2.5m2.5 0a5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5m2.5 0a7.5 7.5 0 01-7.5 7.5 7.5 7.5 0 01-7.5-7.5 7.5 7.5 0 017.5-7.5 7.5 7.5 0 017.5 7.5m2.5 0a10 10 0 01-10 10 10 10 0 01-10-10 10 10 0 0110-10 10 10 0 0110 10m2.5 0a12.5 12.5 0 01-12.5 12.5 12.5 12.5 0 01-12.5-12.5 12.5 12.5 0 0112.5-12.5 12.5 12.5 0 0112.5 12.5m0-9a2.5 2.5 0 00-2.363 1.688 12.5 12.5 0 011.672 3.212 12.5 12.5 0 010 .002 2.5 2.5 0 00.69.098 2.5 2.5 0 002.5-2.5 2.5 2.5 0 00-2.5-2.5zm0-2.5a5 5 0 00-4.143 2.203 12.5 12.5 0 014.053 7.795 5 5 0 00.09.002 5 5 0 005-5 5 5 0 00-5-5zm-.037-2.5a7.5 7.5 0 00-6.125 3.227 12.5 12.5 0 016.162 10.773 12.5 12.5 0 01-.041 1 7.5 7.5 0 00.04 0 7.5 7.5 0 007.5-7.5 7.5 7.5 0 00-7.5-7.5 7.5 7.5 0 00-.036 0zm.017-2.5a10 10 0 00-8.441 4.672 12.5 12.5 0 018.46 11.828 12.5 12.5 0 01-.495 3.488 10 10 0 00.496.012 10 10 0 0010-10 10 10 0 00-10-10 10 10 0 00-.02 0zm.006-2.5a12.5 12.5 0 00-10.998 6.588 12.5 12.5 0 01.29.039 12.5 12.5 0 01.005 0 12.5 12.5 0 01.29.045 12.5 12.5 0 01.003 0 12.5 12.5 0 01.58.113 12.5 12.5 0 01.004 0 12.5 12.5 0 011.123.3 12.5 12.5 0 01.02.007 12.5 12.5 0 01.006.002 12.5 12.5 0 01.277.093 12.5 12.5 0 01.8.31 12.5 12.5 0 01.032.01 12.5 12.5 0 01.033.016 12.5 12.5 0 01.492.223 12.5 12.5 0 01.016.008 12.5 12.5 0 01.004.002 12.5 12.5 0 01.523.271 12.5 12.5 0 01.006.002 12.5 12.5 0 01.254.143 12.5 12.5 0 01.004.002 12.5 12.5 0 01.252.15 12.5 12.5 0 01.004.002 12.5 12.5 0 01.248.156 12.5 12.5 0 01.004.002 12.5 12.5 0 01.244.16 12.5 12.5 0 01.004.002 12.5 12.5 0 01.24.168 12.5 12.5 0 01.004.002 12.5 12.5 0 01.236.174 12.5 12.5 0 01.004.002 12.5 12.5 0 01.233.18 12.5 12.5 0 01.004.002 12.5 12.5 0 01.228.183 12.5 12.5 0 01.004.002 12.5 12.5 0 01.223.19 12.5 12.5 0 01.004.002 12.5 12.5 0 01.218.195 12.5 12.5 0 01.032.03 12.5 12.5 0 01.185.173 12.5 12.5 0 01.004.002 12.5 12.5 0 01.209.205 12.5 12.5 0 01.004.004 12.5 12.5 0 01.205.21 12.5 12.5 0 01.002.001 12.5 12.5 0 01.2.215 12.5 12.5 0 01.003.004 12.5 12.5 0 01.193.219 12.5 12.5 0 01.004.003 12.5 12.5 0 01.19.223 12.5 12.5 0 01.004.004 12.5 12.5 0 01.363.463 12.5 12.5 0 01.004.004 12.5 12.5 0 01.172.236 12.5 12.5 0 01.004.004 12.5 12.5 0 01.166.24 12.5 12.5 0 01.002.004 12.5 12.5 0 01.162.244 12.5 12.5 0 01.002.004 12.5 12.5 0 01.156.248 12.5 12.5 0 01.03.05 12.5 12.5 0 01.251.437 12.5 12.5 0 01.016.029 12.5 12.5 0 01.01.02 12.5 12.5 0 01.263.507 12.5 12.5 0 01.002.004 12.5 12.5 0 01.125.266 12.5 12.5 0 01.002.004 12.5 12.5 0 01.118.267 12.5 12.5 0 01.002.004 12.5 12.5 0 01.113.272 12.5 12.5 0 01.002.004 12.5 12.5 0 01.105.273 12.5 12.5 0 01.002.004 12.5 12.5 0 01.098.275 12.5 12.5 0 01.002.004 12.5 12.5 0 01.092.278 12.5 12.5 0 01.002.003 12.5 12.5 0 01.086.282 12.5 12.5 0 01.002.004 12.5 12.5 0 01.078.28 12.5 12.5 0 01.002.005 12.5 12.5 0 01.072.285 12.5 12.5 0 01.002.004 12.5 12.5 0 01.067.285 12.5 12.5 0 01.023.121 12.5 12.5 0 01.035.17 12.5 12.5 0 01.086.496 12.5 12.5 0 01.014.09 12.5 12.5 0 010 .004 12.5 12.5 0 01.039.29 12.5 12.5 0 01.008.075 12.5 12.5 0 01.045.467 12.5 12.5 0 01.003.05 12.5 12.5 0 01.002.04 12.5 12.5 0 01.028.535 12.5 12.5 0 010 .02 12.5 12.5 0 010 .003 12.5 12.5 0 01.004.293 12.5 12.5 0 010 .014 12.5 12.5 0 01-.127 1.777 12.5 12.5 0 01-.1.586 12.5 12.5 0 01-.058.291 12.5 12.5 0 010 .002 12.5 12.5 0 01-.141.576 12.5 12.5 0 01-.08.287 12.5 12.5 0 01-.182.567 12.5 12.5 0 01-.207.557 12.5 12.5 0 01-.234.546 12.5 12.5 0 01-.26.536 12.5 12.5 0 01-.1.187 12.5 12.5 0 001.488.088 12.5 12.5 0 0012.5-12.5 12.5 12.5 0 00-12.5-12.5 12.5 12.5 0 00-.014 0zm-24.986 10a2.5 2.5 0 00-2.5 2.5 2.5 2.5 0 002.5 2.5 2.5 2.5 0 00.691-.098 12.5 12.5 0 011.672-3.214A2.5 2.5 0 00.044 13.25zm0-2.5a5 5 0 00-5 5 5 5 0 005 5 5 5 0 00.09-.002 12.5 12.5 0 014.054-7.795A5 5 0 00.044 10.75zm-.037-2.5a7.5 7.5 0 00-7.463 7.5 7.5 7.5 0 007.5 7.5 7.5 7.5 0 00.041 0 12.5 12.5 0 01-.041-1 12.5 12.5 0 016.162-10.773A7.5 7.5 0 00.044 8.25a7.5 7.5 0 00-.037 0zm.017-2.5a10 10 0 00-9.98 10 10 10 0 0010 10 10 10 0 00.498-.014 12.5 12.5 0 01-.498-3.486 12.5 12.5 0 018.46-11.828A10 10 0 00.045 5.75a10 10 0 00-.02 0zm-.082-2.5a12.5 12.5 0 00-12.486 12.5 12.5 12.5 0 0012.5 12.5 12.5 12.5 0 001.57-.1 12.5 12.5 0 01-1.482-5.9 12.5 12.5 0 0110.93-12.4A12.5 12.5 0 00-.044 3.25a12.5 12.5 0 00-.014 0zm12.602 3.5a2.5 2.5 0 00-2.39 1.773 12.5 12.5 0 01.82 1.327 12.5 12.5 0 011.57-.1 12.5 12.5 0 011.488.088 12.5 12.5 0 01.875-1.399 2.5 2.5 0 00-2.363-1.689zm0-2.5a5 5 0 00-4.178 2.256 12.5 12.5 0 012.608 3.344 12.5 12.5 0 011.57-.1 12.5 12.5 0 011.488.088 12.5 12.5 0 012.658-3.383 5 5 0 00-4.146-2.205zm-.037-2.5a7.5 7.5 0 00-6.15 3.266 12.5 12.5 0 014.617 4.834 12.5 12.5 0 011.57-.1 12.5 12.5 0 011.488.088 12.5 12.5 0 014.676-4.861 7.5 7.5 0 00-6.164-3.227 7.5 7.5 0 00-.037 0zm5.226 9.129a12.5 12.5 0 01.254.117 12.5 12.5 0 00-.254-.117zM12.524-.75a10 10 0 00-8.457 4.695 12.5 12.5 0 016.907 5.905 12.5 12.5 0 011.57-.1 12.5 12.5 0 011.488.088 12.5 12.5 0 016.973-5.916A10 10 0 0012.544-.75a10 10 0 00-.02 0zm5.21 11.629a12.5 12.5 0 01.253.117 12.5 12.5 0 00-.254-.117zM12.53-3.25a12.5 12.5 0 00-11.004 6.6 12.5 12.5 0 019.448 6.5 12.5 12.5 0 011.57-.1 12.5 12.5 0 011.488.088 12.5 12.5 0 019.526-6.498 12.5 12.5 0 00-11.014-6.59 12.5 12.5 0 00-.014 0zm5.203 14.129a12.5 12.5 0 01.254.117 12.5 12.5 0 00-.254-.117zM25.043.25a2.5 2.5 0 00-2.362 1.688 12.5 12.5 0 01.877 1.4 12.5 12.5 0 011.472-.088 12.5 12.5 0 01.014 0 12.5 12.5 0 012.389.23 2.5 2.5 0 00.11-.73 2.5 2.5 0 00-2.5-2.5zm0-2.5A5 5 0 0020.9-.047a12.5 12.5 0 012.659 3.385 12.5 12.5 0 011.472-.088 12.5 12.5 0 01.014 0 12.5 12.5 0 014.783.953 5 5 0 00.217-1.453 5 5 0 00-5-5zm-.036-2.5a7.5 7.5 0 00-6.125 3.227 12.5 12.5 0 014.676 4.86 12.5 12.5 0 011.472-.087 12.5 12.5 0 01.014 0 12.5 12.5 0 017.014 2.152 7.5 7.5 0 00.486-2.652 7.5 7.5 0 00-7.5-7.5 7.5 7.5 0 00-.037 0zm.017-2.5a10 10 0 00-8.441 4.672 12.5 12.5 0 016.975 5.916 12.5 12.5 0 011.472-.088 12.5 12.5 0 01.014 0 12.5 12.5 0 019.01 3.838 10 10 0 00.99-4.338 10 10 0 00-10-10 10 10 0 00-.02 0zm.006-2.5a12.5 12.5 0 00-10.998 6.59 12.5 12.5 0 019.526 6.498 12.5 12.5 0 011.472-.088 12.5 12.5 0 01.014 0 12.5 12.5 0 0110.678 6 12.5 12.5 0 001.822-6.5 12.5 12.5 0 00-12.5-12.5 12.5 12.5 0 00-.014 0zM14.69 8.75a12.5 12.5 0 00-.128.197 12.5 12.5 0 01.128-.197zm3.043 2.129a12.5 12.5 0 01.254.117 12.5 12.5 0 00-.254-.117zM.043.25a2.5 2.5 0 00-2.5 2.5 2.5 2.5 0 00.106.717A12.5 12.5 0 01-.058 3.25a12.5 12.5 0 01.014 0 12.5 12.5 0 011.57.1 12.5 12.5 0 01.881-1.41A2.5 2.5 0 00.044.25zm0-2.5a5 5 0 00-5 5 5 5 0 00.208 1.42 12.5 12.5 0 014.691-.92 12.5 12.5 0 01.014 0 12.5 12.5 0 011.57.1A12.5 12.5 0 014.19-.045 5 5 0 00.044-2.25zm-.036-2.5a7.5 7.5 0 00-7.463 7.5 7.5 7.5 0 00.469 2.605A12.5 12.5 0 01-.057 3.25a12.5 12.5 0 01.013 0 12.5 12.5 0 011.57.1 12.5 12.5 0 014.682-4.873A7.5 7.5 0 00.044-4.75a7.5 7.5 0 00-.037 0zm.017-2.5a10 10 0 00-9.98 10 10 10 0 00.96 4.275A12.5 12.5 0 01-.057 3.25a12.5 12.5 0 01.014 0 12.5 12.5 0 011.57.1 12.5 12.5 0 016.979-5.928A10 10 0 00.044-7.25a10 10 0 00-.02 0zm.006-2.5a12.5 12.5 0 00-12.486 12.5 12.5 12.5 0 001.78 6.428A12.5 12.5 0 01-.059 3.25a12.5 12.5 0 01.014 0 12.5 12.5 0 011.57.1 12.5 12.5 0 019.532-6.51A12.5 12.5 0 00.044-9.75a12.5 12.5 0 00-.014 0zM9.722 7.951a12.5 12.5 0 01.12.154 12.5 12.5 0 00-.12-.154z'  stroke-width='1' stroke='%23000000ff' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(-44,-4)' fill='url(%23a)'/></svg>");
+  background-image:
+    linear-gradient(120deg, rgba(118, 50, 50, 0.899) 0 1px, transparent 1px 100%),
+    linear-gradient(30deg, rgba(255, 255, 255, 0.356) 0 1px, transparent 1px 100%),
+    linear-gradient(60deg, rgba(255, 255, 255, 0.167) 0 1px, transparent 1px 100%),
+    linear-gradient(0deg, rgba(214, 106, 18, 0.817) 0 1px, transparent 1px 100%);
+  background-size: 28px 28px, 44px 44px, 120px 120px, 100% 100%;
+  background-attachment: fixed;
   padding-top: env(safe-area-inset-top);
 }
 
 /* hero Section or header */
-.hero-container{
+.hero-container {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -128,20 +134,23 @@ body {
   align-items: center;
   text-align: center;
 }
-#header{
+
+#header {
   padding-top: 10rem;
   color: var(--text-color);
   text-align: center;
   scroll-margin-top: 4rem;
   font-size: 1.1rem;
 }
-#header h1{
+
+#header h1 {
   font-family: var(--Kanit);
   font-size: 2.5rem;
   font-weight: 400;
-  
+
 }
-.titles{
+
+.titles {
   font-family: var(--Code-pro);
   font-size: 1rem;
   margin-bottom: 1rem;
@@ -149,25 +158,29 @@ body {
 }
 
 /* view my work - GEt in touch buttons */
-.hero-buttons{
+.hero-buttons {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 2rem;
 }
+
 .btn {
-  padding: 1rem 2.5rem;
+  padding: 1rem 2rem;
   background: var(--transparent-color);
   color: var(--text-color);
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid var(--transparent-color-line);
 }
-.btn:hover{
-  transition: all 0.3s ease;
+
+.btn:hover {
+  transition: all 0.4s ease;
+  color: var(--fullwhite);
   transform: translateY(-4px);
-  border: 2px solid var(--accent-color);
+  background: var(--transparent-color-line);
+  border: 1px solid var(--accent-color);
 }
 
 .section {
@@ -178,7 +191,8 @@ body {
   max-width: 95%;
   margin: auto;
   scroll-margin-top: 4rem;
-} 
+}
+
 .section-divider {
   display: flex;
   align-items: center;
@@ -186,11 +200,12 @@ body {
   margin: 2em 0;
   font-family: var(--Code-pro);
 }
+
 .section-divider .line {
   height: 0.5px;
   flex: 1;
   background-color: var(--text-gray);
-  }
+}
 
 /* About Me section */
 .about-me-content {
@@ -200,16 +215,18 @@ body {
   align-items: center;
 }
 
-.about-text p{
+.about-text p {
   align-self: center;
   padding: 0.5rem;
   text-align: center;
   font-size: 1.1rem;
   font-weight: lighter;
 }
-.about-text strong{
+
+.about-text strong {
   color: var(--bold-color)
 }
+
 .about-image {
   --about-img-size: min(280px, 45vw);
   width: var(--about-img-size);
@@ -253,17 +270,17 @@ body {
   gap: 1.5rem;
   margin-top: 3rem;
 }
+
 .skill-card {
   border: 1px solid var(--transparent-color-line);
   background: var(--transparent-color);
   padding: 1.5rem 0.5rem 0 0.5rem;
-  border-radius: 15px;
-  transition: all 0.3s;
+  border-radius: 12px;
+  transition: all 0.4s ease;
 }
 
 .skill-card:hover {
   transform: translateY(-5px);
-  background: var(--transparent-color-line);
   border: 1px solid var(--accent-color);
 }
 
@@ -297,24 +314,24 @@ body {
   gap: 2.5rem;
   margin-top: 3rem;
 }
+
 .project-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 15px;
+  background: var(--transparent-color);
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: all 0.4s ease;
   border: 1px solid var(--transparent-color-line);
 }
 
 .project-card:hover {
-  background-color: var(--transparent-color);
-  transform: translateY(-10px);
-  border-color: var(--transparent-color-line);
+  transform: translateY(-5px);
+  border: 1px solid var(--accent-color);
 }
 
 .project-image {
   width: 100%;
   height: 250px;
-  background: #0d0e1a;
+  background: var(--transparent-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -352,7 +369,7 @@ body {
 }
 
 .project-link:hover {
-  
+
   text-decoration: underline;
 }
 
@@ -382,64 +399,84 @@ body {
   font-size: 0.95em;
   color: var(--text-color);
 }
-.card-body h3{
+
+.card-body h3 {
   font-family: var(--Code-pro);
   margin-bottom: 0.7em;
 }
 
 
 /* certifications*/
-.images-container{
+.images-container {
   display: grid;
-  grid-template-columns: 
-  repeat(auto-fit, minmax(200px,1fr));
+  grid-template-columns:
+    repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
   justify-content: center;
   align-items: center;
   font-family: var(--Poppins);
   font-size: smaller;
-  text-align:center;
+  text-align: center;
 }
 
-.image-box{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.image-box {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.7rem;
   margin-top: 30px;
 }
 
 .image-box:not(:has(.cert-link)) {
-  opacity: 0.75;
+  opacity: 0.65;
 }
 
 .image-box:has(.cert-link):hover {
-  transform: translateY(-5px);
-  transition: transform 0.4s;
+  transition: all 0.4s ease;
+  transform: translateY(-3px);
+  color: var(--fullwhite);
 }
 
-.image-box img{
+.image-box img {
   height: auto;
   width: 200px;
 }
 
-.cert-code{
+.cert-code {
   font-family: var(--Code-pro);
   font-weight: lighter;
 }
-.cert-place_and_name{
+
+.cert-place_and_name {
   margin-top: 7px;
 }
+
 .course-status {
-  font-weight:100;
+  font-weight: 100;
 }
-.cert-link{
+
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(214, 106, 18, 0.35);
+  border-radius: 999px;
+  background: rgba(214, 106, 18, 0.12);
   color: var(--bold-color);
-  font-size: x-small;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.2;
+  transition: all 0.4s ease;
 }
-.cert-link:hover{
-  transition: color 0.4s;
-  color: var(--t-color);
-  font-size: x-small;
+
+.cert-link:hover {
+  color: var(--fullwhite);
+  background: rgba(214, 106, 18, 0.22);
+  transform: translateY(-2px);
+  border-color: var(--accent-color);
 }
 
 
@@ -454,10 +491,10 @@ body {
 .contact-link {
   padding: 1rem 2rem;
   background: var(--transparent-color);
-  border-radius: 8px;
+  border-radius: 12px;
   text-decoration: none;
   color: var(--text-color);
-  transition: all 0.3s;
+  transition: all 0.4s ease;
   font-weight: bold;
   border: 1px solid var(--transparent-color-line);
   display: flex;
@@ -466,11 +503,14 @@ body {
   gap: 0.6rem;
 }
 
-.contact-link svg { flex-shrink: 0; }
+.contact-link svg {
+  flex-shrink: 0;
+}
 
 .contact-link:hover {
-  transform: translateY(-4px);
-  border: solid 2px var(--accent-color);
+  transition: all 0.4s ease;
+  transform: translateY(-3px);
+  border: solid 1px var(--accent-color);
   color: var(--bold-color);
 }
 
@@ -492,7 +532,7 @@ body {
 .contact-form {
   background: var(--transparent-color);
   padding: 2.5rem;
-  border-radius: 15px;
+  border-radius: 12px;
   border: 1px solid var(--transparent-color-line);
 }
 
@@ -514,11 +554,11 @@ body {
   padding: 0.8rem;
   background: var(--hover-color);
   border: 1px solid var(--transparent-color-line);
-  border-radius: 8px;
+  border-radius: 12px;
   color: var(--text-color);
   font-family: var(--Poppins);
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .form-group input:focus,
@@ -536,6 +576,7 @@ body {
 #submit-btn {
   display: block;
   margin: 1rem auto 0;
+  padding: 0.6rem 1rem;
   cursor: pointer;
   max-width: 200px;
   font-size: 0.9rem;
@@ -550,7 +591,7 @@ body {
 .form-message {
   margin-top: 1.5rem;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
   text-align: center;
   font-family: var(--Code-pro);
 }
@@ -574,7 +615,7 @@ footer {
   background-color: var(--navbar-color);
   text-align: center;
   padding: 1.5rem;
-  margin-top:5rem;
+  margin-top: 5rem;
 }
 
 #open-sidebar-button {
@@ -608,16 +649,18 @@ footer {
 #open-sidebar-button.open .ham-line:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 #open-sidebar-button.open .ham-line:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
+
 #open-sidebar-button.open .ham-line:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-#overlay{
-  background: rgba(0,0,0,0.7);
+#overlay {
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   inset: 0;
   z-index: 9;
@@ -659,18 +702,21 @@ footer {
 }
 
 /* mobile styles ##############################################*/
-@media screen and (max-width: 977px){
-  .section h2{
+@media screen and (max-width: 977px) {
+  .section h2 {
     font-size: 1.3rem;
   }
-  footer{
+
+  footer {
     font-size: 0.7rem;
   }
-  #open-sidebar-button{
+
+  #open-sidebar-button {
     display: flex;
   }
+
   /* nav container */
-  #navbar{
+  #navbar {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -686,8 +732,9 @@ footer {
     justify-content: flex-start;
     padding: 5rem 0 2rem 0;
   }
+
   /* nav list items */
-  #navbar ul{
+  #navbar ul {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -698,6 +745,7 @@ footer {
   .accent-link-container {
     margin-top: 2rem;
   }
+
   .accent-link {
     text-align: center;
   }
@@ -719,12 +767,12 @@ footer {
   }
 
   /* hide KR name logo for desktop from burger menu */
-  .logo{
+  .logo {
     display: none;
   }
 
   /* show kevinn ramirez name for mobile logo*/
-  .logo-for-mobile{
+  .logo-for-mobile {
     display: block;
     font-family: var(--Kanit);
     font-weight: 600;
@@ -733,33 +781,34 @@ footer {
     text-decoration: none;
     font-size: 1.4em;
   }
-  
-  #topbar-menu button{
+
+  #topbar-menu button {
     background: transparent;
   }
 
   .about-me-content {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
   .about-image {
-    padding: 0.2rem; 
+    padding: 0.2rem;
   }
 
   /* open movement */
-  #navbar.show{
+  #navbar.show {
     right: 0;
   }
-  #navbar.show ~ #overlay{
+
+  #navbar.show~#overlay {
     display: block;
   }
 
   .contact-link {
-  min-width: 150px;
-  text-align: center;
-  flex: 1 1 200px;
-  max-width: 210px;
-  border-color: var(--bold-color);
+    min-width: 150px;
+    text-align: center;
+    flex: 1 1 200px;
+    max-width: 210px;
+    border-color: var(--bold-color);
   }
 
   #submit-btn {
@@ -770,29 +819,31 @@ footer {
     max-width: 100%;
     padding: 0;
   }
+
   .contact-form {
     padding: 1.5rem;
   }
-} 
+}
 
 /* Ipad and  small displays styles but bigger than mobile #########*/
 @media screen and (max-width: 1240px) and (min-width: 978px) {
-  
+
   #navbar ul a {
     font-size: 0.9em;
     font-weight: 300;
   }
-  #navbar .accent-link{
+
+  #navbar .accent-link {
     font-size: 0.9em;
     font-weight: 300;
   }
-  #navbar .logo a{
+
+  #navbar .logo a {
     font-size: 0.9em;
   }
 
   .about-me-content {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
 }
-
