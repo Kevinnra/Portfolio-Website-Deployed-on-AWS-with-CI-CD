@@ -80,6 +80,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+const projectCards = document.querySelectorAll('.project-card');
+projectCards.forEach((card) => {
+  const projectHref = card.querySelector('a[href]')?.getAttribute('href');
+
+  if (!projectHref) return;
+
+  card.style.cursor = 'pointer';
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'link');
+
+  const goToProject = (event) => {
+    if (event.target.closest('a, button')) {
+      return;
+    }
+
+    window.location.href = projectHref;
+  };
+
+  card.addEventListener('click', goToProject);
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      goToProject(event);
+    }
+  });
+});
 
 updateNavbar(media)
 
