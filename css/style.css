@@ -321,11 +321,17 @@ body {
   overflow: hidden;
   transition: all 0.4s ease;
   border: 1px solid var(--transparent-color-line);
+  cursor: pointer;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
   border: 1px solid var(--accent-color);
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 .project-image {
@@ -363,14 +369,27 @@ body {
 }
 
 .project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(214, 106, 18, 0.35);
+  border-radius: 999px;
+  background: rgba(214, 106, 18, 0.12);
   color: var(--bold-color);
-  text-decoration: none;
+  font-size: 0.75rem;
   font-weight: 600;
+  text-decoration: none;
+  line-height: 1.2;
+  transition: all 0.4s ease;
 }
 
 .project-link:hover {
-
-  text-decoration: underline;
+  color: var(--fullwhite);
+  background: rgba(214, 106, 18, 0.22);
+  transform: translateY(-2px);
+  border-color: var(--accent-color);
+  text-decoration: none;
 }
 
 .card-image {
