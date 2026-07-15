@@ -119,7 +119,7 @@ body {
     linear-gradient(120deg, rgba(118, 50, 50, 0.899) 0 1px, transparent 1px 100%),
     linear-gradient(30deg, rgba(255, 255, 255, 0.356) 0 1px, transparent 1px 100%),
     linear-gradient(60deg, rgba(255, 255, 255, 0.167) 0 1px, transparent 1px 100%),
-    linear-gradient(0deg, rgba(214, 106, 18, 0.817) 0 1px, transparent 1px 100%);
+    linear-gradient(7deg, rgba(214, 106, 18, 0.814) 0 1px, transparent 1px 100%);
   background-size: 28px 28px, 44px 44px, 120px 120px, 100% 100%;
   background-attachment: fixed;
   padding-top: env(safe-area-inset-top);
