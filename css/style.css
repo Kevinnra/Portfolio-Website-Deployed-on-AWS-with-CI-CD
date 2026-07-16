@@ -227,6 +227,15 @@ body {
   color: var(--bold-color)
 }
 
+.text-gray {
+  font-family: var(--Code-pro);
+  font-weight: normal;
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  
+}
+
 .about-image {
   --about-img-size: min(280px, 45vw);
   width: var(--about-img-size);
