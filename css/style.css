@@ -215,15 +215,16 @@ body {
   align-items: center;
 }
 
-.about-text p {
+.main-text{
   align-self: center;
   padding: 0.5rem;
   text-align: center;
   font-size: 1.1rem;
-  font-weight: lighter;
+  font-weight: normal;
+  font-family: var(--Poppins);
 }
 
-.about-text strong {
+.highlight {
   color: var(--bold-color)
 }
 
@@ -231,9 +232,8 @@ body {
   font-family: var(--Code-pro);
   font-weight: normal;
   color: var(--text-gray);
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  
+  text-align: center;
+  margin-top: 1.2rem;
 }
 
 .about-image {
