@@ -9,9 +9,9 @@
   overflow-x: hidden;
   background-image:
     radial-gradient(ellipse at 50% 45%, rgba(175, 79, 0, 0.12), transparent 52%),
-    linear-gradient(120deg, rgba(118, 50, 50, 0.4) 0 1px, transparent 1px 100%),
-    linear-gradient(30deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 100%),
-    linear-gradient(60deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 100%);
+    linear-gradient(120deg, rgba(118, 50, 50, 0.899) 0 1px, transparent 1px 100%),
+    linear-gradient(30deg, rgba(255, 255, 255, 0.356) 0 1px, transparent 1px 100%),
+    linear-gradient(60deg, rgba(255, 255, 255, 0.167) 0 1px, transparent 1px 100%);
   background-size: auto, 28px 28px, 44px 44px, 120px 120px;
 }
 
