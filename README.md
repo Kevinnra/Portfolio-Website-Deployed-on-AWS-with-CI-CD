@@ -40,6 +40,7 @@ S3 serves as the origin server storing website files. CloudFront delivers conten
 - Created dedicated IAM user with least-privilege policies for GitHub Actions
 - Configured Route 53 DNS with A record aliases for apex and www domains
 - Enabled CloudWatch logging for monitoring and debugging
+- Added a branded 404 landing page for missing routes
 
 ---
 
@@ -51,10 +52,12 @@ S3 serves as the origin server storing website files. CloudFront delivers conten
 │   └── workflows/
 │       └── deploy.yml              # CI/CD pipeline — S3 sync + CloudFront invalidation
 ├── css/
-│   └── style.css                   # Global styles and design tokens
+│   ├── style.css                   # Global styles and design tokens
+│   └── 404.css                     # Missing-page styles
 ├── js/
 │   ├── script.js                   # Navigation, smooth scroll, sidebar
 │   └── contact-form.js             # Contact form — calls serverless API
+├── 404.html                        # Custom missing-page landing page
 ├── projects/
 │   ├── project-v3.html             # Project detail page (HTML shell)
 │   ├── project-loader-v3.js        # Injects project content at runtime
@@ -103,6 +106,10 @@ Then open your browser:
 | AWS Portfolio project | http://localhost:8080/projects/project-v3.html?id=aws-portfolio |
 | Serverless API project | http://localhost:8080/projects/project-v3.html?id=serverless-api |
 | Flask ECS project | http://localhost:8080/projects/project-v3.html?id=flask-ecs-api |
+
+## 404 Page Deployment
+
+The deployment workflow uploads `404.html` and its stylesheet to S3. To show the custom page for missing URLs, configure CloudFront custom error responses for both `403` and `404` to serve `/404.html` with an HTTP `404` response. A private S3 origin can return `403` for a missing object. The current workflow deploys site files but does not manage CloudFront error-response settings, so this mapping must be configured on the distribution.
 
 ---
 
